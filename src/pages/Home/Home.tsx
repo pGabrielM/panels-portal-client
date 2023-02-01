@@ -14,7 +14,6 @@ export default function Home() {
   return (
     <div>
       <h1>Hello {auth.user?.name}</h1>
-      <Link to={'/private'}>Privado</Link>
       <button onClick={handleLogout}><a>Sair</a></button>
 
     </div>

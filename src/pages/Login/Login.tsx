@@ -64,7 +64,7 @@ export default function Login() {
             {error &&
               <Snackbar open={error} onClose={handleClose} autoHideDuration={3000}>
                 <Alert severity="error" sx={{ width: '100%' }}>
-                E-mail ou senha invalidos!
+                  E-mail ou senha invalidos!
                 </Alert>
               </Snackbar>
             }
@@ -104,17 +104,10 @@ export default function Login() {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+            <Grid  textAlign={'center'}>
+              <Link href="/portal" variant="body2">
+                Portal de indicadores
+              </Link>
             </Grid>
           </Box>
         </Box>
