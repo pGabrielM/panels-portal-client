@@ -7,15 +7,20 @@ const api = axios.create({
 export const useApi = () => ({
   validateToken: async (token: string) => {
     const config = {
-      headers: { 'Authorization': `Bearer ${token}`}
+      headers: { 'Authorization': `Bearer ${token}` }
     };
 
     const response = await api.get('/profile', config);
     return response.data
   },
   login: async (email: string, password: string) => {
-    const response = await api.post('/login', { email, password });
-    return response.data;
+    return await api.post('/login', { email, password })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error.response.data;
+      })
   },
   logout: async () => {
     const response = await api.get('/logout')

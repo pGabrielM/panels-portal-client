@@ -6,6 +6,7 @@ import { AuthContext } from "./AuthContext";
 export default function AuthProvider({ children }: { children: JSX.Element }) {
   const [user, setUser] = useState<User | null>(null);
   const api = useApi();
+  
 
   useEffect(() => {
     const validateToken = async () => {
@@ -18,7 +19,7 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
       }
     }
     validateToken();
-  }, [api])
+  }, [])
 
   async function login(email: string, password: string) {
     const data = await api.login(email, password);
@@ -28,7 +29,7 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
       setToken(data.token)
       return true;
     }
-    return false
+    return false;
   }
 
   async function logout() {
