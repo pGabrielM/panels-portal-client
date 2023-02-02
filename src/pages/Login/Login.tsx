@@ -29,6 +29,8 @@ export default function Login() {
   const [saveToken, setSaveToken] = useState(false)
   const [error, setError] = useState(false)
 
+  console.log(error)
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isLogged = await auth.login(email, password, saveToken);
@@ -36,11 +38,10 @@ export default function Login() {
     if (isLogged) {
       navigate('/home')
     } else {
-      setError(true)
+      setError(false)
+      setTimeout(() => setError(true), 100)
     }
   }
-
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,16 +58,11 @@ export default function Login() {
             alignItems: 'center',
           }}
         >
-
-
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-
             <Box height={50}>
-              {error &&
-                <Zoom in={error}>
-                  <Alert severity="error" sx={{ width: '100%' }}>E-mail ou senha invalidos!</Alert>
-                </Zoom>
-              }
+              <Zoom in={error}>
+                <Alert severity="error" sx={{ width: '100%' }}>E-mail ou senha invalidos!</Alert>
+              </Zoom>
             </Box>
             <Typography component="h1" variant="h5" textAlign={'center'}>
               Faça login para sua conta
