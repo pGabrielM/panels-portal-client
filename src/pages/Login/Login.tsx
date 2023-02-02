@@ -15,7 +15,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Alert, Grow, Slide, Snackbar } from "@mui/material";
+import { Alert, Grow, Slide, Snackbar, Zoom } from "@mui/material";
+import { PortalHeaderLogo } from "../Portal/PortalHeader/PortalHeaderLogo";
 
 const theme = createTheme();
 
@@ -45,28 +46,31 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <Box sx={{ marginTop: 14 }}>
+          <PortalHeaderLogo />
+        </Box>
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Faça login para sua conta
-          </Typography>
+
+
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            {error &&
-              <Box>
-                <Grow in={error}>
+
+            <Box height={50}>
+              {error &&
+                <Zoom in={error}>
                   <Alert severity="error" sx={{ width: '100%' }}>E-mail ou senha invalidos!</Alert>
-                </Grow>
-              </Box>
-            }
+                </Zoom>
+              }
+            </Box>
+            <Typography component="h1" variant="h5" textAlign={'center'}>
+              Faça login para sua conta
+            </Typography>
             <TextField
               margin="normal"
               required
