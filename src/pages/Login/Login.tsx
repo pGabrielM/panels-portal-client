@@ -15,7 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Grow, Slide, Snackbar } from "@mui/material";
 
 const theme = createTheme();
 
@@ -25,11 +25,12 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [saveToken, setSaveToken] = useState(false)
   const [error, setError] = useState(false)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isLogged = await auth.login(email, password);
+    const isLogged = await auth.login(email, password, saveToken);
 
     if (isLogged) {
       navigate('/home')
@@ -38,9 +39,7 @@ export default function Login() {
     }
   }
 
-  const handleClose = () => {
-    setError(false)
-  }
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -62,11 +61,11 @@ export default function Login() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             {error &&
-              <Snackbar open={error} onClose={handleClose} autoHideDuration={3000}>
-                <Alert severity="error" sx={{ width: '100%' }}>
-                  E-mail ou senha invalidos!
-                </Alert>
-              </Snackbar>
+              <Box>
+                <Grow in={error}>
+                  <Alert severity="error" sx={{ width: '100%' }}>E-mail ou senha invalidos!</Alert>
+                </Grow>
+              </Box>
             }
             <TextField
               margin="normal"
@@ -93,7 +92,7 @@ export default function Login() {
               value={password}
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox checked={saveToken} onChange={(e) => setSaveToken(e.target.checked)} value={saveToken} color="primary" />}
               label="Lembrar de mim"
             />
             <Button
@@ -102,9 +101,9 @@ export default function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Entrar
             </Button>
-            <Grid  textAlign={'center'}>
+            <Grid textAlign={'center'}>
               <Link href="/portal" variant="body2">
                 Portal de indicadores
               </Link>

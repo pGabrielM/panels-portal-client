@@ -15,7 +15,6 @@ export default function Home() {
     <div>
       <h1>Hello {auth.user?.name}</h1>
       <button onClick={handleLogout}><a>Sair</a></button>
-
     </div>
   )
 }

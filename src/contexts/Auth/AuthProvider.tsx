@@ -21,12 +21,14 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
     validateToken();
   }, [])
 
-  async function login(email: string, password: string) {
+  async function login(email: string, password: string, saveToken: boolean) {
     const data = await api.login(email, password);
 
     if (data.user && data.token) {
       setUser(data.user);
-      setToken(data.token)
+      if(saveToken) {
+        setToken(data.token)
+      }
       return true;
     }
     return false;
