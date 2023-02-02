@@ -36,7 +36,7 @@ export default function Login() {
     const isLogged = await auth.login(email, password, saveToken);
 
     if (isLogged) {
-      navigate('/home')
+      navigate('/admin')
     } else {
       setError(false)
       setTimeout(() => setError(true), 100)
