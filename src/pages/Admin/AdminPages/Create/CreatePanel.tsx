@@ -1,5 +1,6 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Container } from "@mui/system";
+import CreatePanelForm from "./CreatePanelForm";
 
 export default function CreatePanel() {
   return (
@@ -17,18 +18,7 @@ export default function CreatePanel() {
     >
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={8} lg={9}>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 240,
-              }}
-            >
-              <Typography>Hello from create panel</Typography>
-            </Paper>
-          </Grid>
+          <CreatePanelForm />
         </Grid>
       </Container>
     </Box>

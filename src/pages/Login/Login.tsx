@@ -29,8 +29,6 @@ export default function Login() {
   const [saveToken, setSaveToken] = useState(false)
   const [error, setError] = useState(false)
 
-  console.log(error)
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isLogged = await auth.login(email, password, saveToken);

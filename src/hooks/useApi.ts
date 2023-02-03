@@ -25,5 +25,14 @@ export const useApi = () => ({
   logout: async () => {
     const response = await api.get('/logout')
     return response.data;
+  },
+  panel: async (panelName: string, panelLink: string) => {
+    return await api.post('/panel', { panelName, panelLink })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error.response.data;
+      })
   }
 })
