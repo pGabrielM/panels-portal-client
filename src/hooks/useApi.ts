@@ -43,7 +43,6 @@ export const useApi = () => ({
   },
   getAllPanel: async () => {
     const storageData = localStorage.getItem('authToken');
-
     const config = {
       headers: { 'Authorization': `Bearer ${storageData}` }
     };
@@ -51,4 +50,13 @@ export const useApi = () => ({
     const response = await api.get('/panel', config)
     return response.data;
   },
+  deletePanel: async (panelId: Number) => {
+    const storageData = localStorage.getItem('authToken');
+    const config = {
+      headers: { 'Authorization': `Bearer ${storageData}` }
+    };
+
+    const response = await api.delete(`/panel/${panelId}`, config)
+    return response.data;
+  }
 })

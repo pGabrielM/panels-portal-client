@@ -16,7 +16,16 @@ interface PanelDataProps {
 export default function DeletePanelForm() {
   const data = useApi()
   const [allPanels, setAllPanels] = useState([])
-  const navigate = useNavigate()
+  const [panelsToDelete, setPanelsToDelete] = useState([])
+
+  const getPanels = async () => {
+    const panels = await data.getAllPanel()
+    setAllPanels(panels)
+  }
+
+  useEffect(() => {
+    getPanels()
+  }, [])
 
   const rows = allPanels.map((panel: PanelDataProps, key) => {
     return { id: panel.id, name: panel.panel_name, link: panel.panel_link, createdBy: panel.created_by_user }
@@ -29,18 +38,15 @@ export default function DeletePanelForm() {
     { field: 'createdBy', headerName: 'Criador por', width: 280 },
   ];
 
-
-  function handleGetIdRowSelected(panelId: GridSelectionModel) {
-    console.log(panelId)
-  }
-
-  useEffect(() => {
-    const getPanels = async () => {
-      const panels = await data.getAllPanel()
-      setAllPanels(panels)
+  async function handleDeletePanels() {
+    for(let i = 0; i < panelsToDelete.length; i++) {
+      await data.deletePanel(panelsToDelete[i])
+      getPanels()
     }
-    getPanels()
-  }, [])
+
+    return data
+
+  }
 
   return (
     <Paper
@@ -61,11 +67,11 @@ export default function DeletePanelForm() {
           columns={columns}
           checkboxSelection
           disableSelectionOnClick
-          onSelectionModelChange={handleGetIdRowSelected}
+          onSelectionModelChange={(id) => {setPanelsToDelete(id)}}
         />
       </Box>
       <Grid item xs={2} margin={'auto'}>
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 4, mb: 2 }}>Remover</Button>
+        <Button onClick={handleDeletePanels} fullWidth variant="contained" sx={{ mt: 4, mb: 2 }}>Remover</Button>
       </Grid>
     </Paper>
   )
