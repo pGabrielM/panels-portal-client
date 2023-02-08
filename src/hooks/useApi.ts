@@ -27,7 +27,13 @@ export const useApi = () => ({
     return response.data;
   },
   panel: async (panelName: string, panelLink: string) => {
-    return await api.post('/panel', { panelName, panelLink })
+    const storageData = localStorage.getItem('authToken');
+
+    const config = {
+      headers: { 'Authorization': `Bearer ${storageData}` }
+    };
+    
+    return await api.post('/panel', { panelName, panelLink }, config)
       .then((response) => {
         return response.data;
       })

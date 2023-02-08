@@ -2,10 +2,10 @@ import { Button, Checkbox, FormControlLabel, Grid, Paper, TextField, Typography 
 import { Box } from "@mui/system";
 import { FormEvent, useContext, useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
-import { DataContext } from "../../../../contexts/Data/DataContext";
+import { useApi } from "../../../../hooks/useApi";
 
 export default function CreatePanelForm() {
-  const data = useContext(DataContext)
+  const data = useApi()
   const navigate = useNavigate()
 
   const [panelName, setPanelName] = useState('');
@@ -24,7 +24,6 @@ export default function CreatePanelForm() {
   return (
     <Paper
       sx={{
-
         p: 2,
         display: 'flex',
         flexDirection: 'column',

@@ -6,14 +6,13 @@ import { AuthContext } from "./AuthContext";
 export default function AuthProvider({ children }: { children: JSX.Element }) {
   const [user, setUser] = useState<User | null>(null);
   const api = useApi();
-  
 
   useEffect(() => {
     const validateToken = async () => {
-      const storageData = localStorage.getItem('authToken');
-      if(storageData) {
+      const storageData = localStorage.getItem('rememberAuthToken');
+      if (storageData) {
         const data = await api.validateToken(storageData)
-        if(data) {
+        if (data) {
           setUser(data)
         }
       }
@@ -26,7 +25,8 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
 
     if (data.user && data.token) {
       setUser(data.user);
-      if(saveToken) {
+      localStorage.setItem('authToken', data.token)
+      if (saveToken) {
         setToken(data.token)
       }
       return true;
@@ -40,7 +40,7 @@ export default function AuthProvider({ children }: { children: JSX.Element }) {
   }
 
   const setToken = (token: string) => {
-    localStorage.setItem('authToken', token)
+    localStorage.setItem('rememberAuthToken', token)
   }
 
   return (
