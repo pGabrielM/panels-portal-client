@@ -8,7 +8,9 @@ import Portal from "../pages/Portal/Portal";
 
 const AppLayout = () => {
   return (
-    <Sidebar OutletElement={<Outlet />} />
+    <RequireAuth>
+      <Sidebar OutletElement={<Outlet />} />
+    </RequireAuth>
   )
 }
 
