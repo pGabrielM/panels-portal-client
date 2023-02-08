@@ -1,7 +1,7 @@
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "../contexts/Auth/RequireAuth";
 import CreatePanel from "../pages/Admin/AdminPages/Create/CreatePanel";
-import DeletePanel from "../pages/Admin/AdminPages/Create/DeletePanel";
+import DeletePanel from "../pages/Admin/AdminPages/Delete/DeletePanel";
 import Home from "../pages/Admin/AdminPages/Home";
 import Sidebar from "../pages/Admin/Sidebar";
 import Login from "../pages/Login/Login";
