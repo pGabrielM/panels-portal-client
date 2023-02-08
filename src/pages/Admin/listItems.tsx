@@ -24,5 +24,13 @@ export const mainListItems = (
         <ListItemText primary="Adicionar Painel" />
       </ListItemButton>
     </Link>
+    <Link to={'/admin/delete'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AddToQueueIcon />
+        </ListItemIcon>
+        <ListItemText primary="Remover Painel" />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );

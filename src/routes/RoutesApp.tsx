@@ -1,6 +1,7 @@
-import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Outlet, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "../contexts/Auth/RequireAuth";
 import CreatePanel from "../pages/Admin/AdminPages/Create/CreatePanel";
+import DeletePanel from "../pages/Admin/AdminPages/Create/DeletePanel";
 import Home from "../pages/Admin/AdminPages/Home";
 import Sidebar from "../pages/Admin/Sidebar";
 import Login from "../pages/Login/Login";
@@ -25,6 +26,7 @@ export default function RoutesApp() {
         <Route element={<AppLayout />}>
           <Route path={'/admin'} element={<Home />} />
           <Route path={'/admin/create'} element={<CreatePanel />} />
+          <Route path={'/admin/delete'} element={<DeletePanel />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -40,5 +40,15 @@ export const useApi = () => ({
       .catch((error) => {
         return error.response.data;
       })
-  }
+  },
+  getAllPanel: async () => {
+    const storageData = localStorage.getItem('authToken');
+
+    const config = {
+      headers: { 'Authorization': `Bearer ${storageData}` }
+    };
+
+    const response = await api.get('/panel', config)
+    return response.data;
+  },
 })
