@@ -32,5 +32,13 @@ export const mainListItems = (
         <ListItemText primary="Remover Painel" />
       </ListItemButton>
     </Link>
+    <Link to={'/admin/update'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AddToQueueIcon />
+        </ListItemIcon>
+        <ListItemText primary="Atualizar Painel" />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );

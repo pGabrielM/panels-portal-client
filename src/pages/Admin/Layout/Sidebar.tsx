@@ -20,7 +20,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems } from './listItems';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { OutletProps, useNavigate } from 'react-router';
-import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { AuthContext } from '../../../contexts/Auth/AuthContext';
 
 function Copyright(props: any) {
   return (

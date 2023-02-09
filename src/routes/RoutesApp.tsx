@@ -3,7 +3,8 @@ import { RequireAuth } from "../contexts/Auth/RequireAuth";
 import CreatePanel from "../pages/Admin/AdminPages/Create/CreatePanel";
 import DeletePanel from "../pages/Admin/AdminPages/Delete/DeletePanel";
 import Home from "../pages/Admin/AdminPages/Home";
-import Sidebar from "../pages/Admin/Sidebar";
+import UpdatePanel from "../pages/Admin/AdminPages/Update/UpdatePanel";
+import Sidebar from "../pages/Admin/Layout/Sidebar";
 import Login from "../pages/Login/Login";
 import Portal from "../pages/Portal/Portal";
 
@@ -27,6 +28,7 @@ export default function RoutesApp() {
           <Route path={'/admin'} element={<Home />} />
           <Route path={'/admin/create'} element={<CreatePanel />} />
           <Route path={'/admin/delete'} element={<DeletePanel />} />
+          <Route path={'/admin/Update'} element={<UpdatePanel />} />
         </Route>
       </Routes>
     </BrowserRouter>
