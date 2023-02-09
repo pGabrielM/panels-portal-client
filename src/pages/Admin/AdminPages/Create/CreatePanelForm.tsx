@@ -13,7 +13,7 @@ export default function CreatePanelForm() {
 
   const handleCreatePanel = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const created = await data.panel(panelName, panelLink)
+    const created = await data.storePanel(panelName, panelLink)
 
     return created
   }

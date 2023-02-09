@@ -1,9 +1,8 @@
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, FormControlLabel, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { DataGrid, GridColDef, GridRowId, GridRowsProp, GridSelectionModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { Container, Table } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
 import { useApi } from "../../../../hooks/useApi";
 
 interface PanelDataProps {
@@ -16,11 +15,13 @@ interface PanelDataProps {
 export default function UpdatePanelForm() {
   const data = useApi()
   const [open, setOpen] = useState(false);
+  const [panelData, setPanelData] = useState<any>({})
 
   const [allPanels, setAllPanels] = useState([])
 
   const getPanels = async () => {
     const panels = await data.getAllPanel()
+    console.log(panels)
     setAllPanels(panels)
   }
 
@@ -44,9 +45,12 @@ export default function UpdatePanelForm() {
     setOpen(false);
   };
 
+  console.log(typeof panelData)
+
   async function handleUpdatePanel(id: number) {
     setOpen(true);
-    console.log(id)
+    const panel: PanelDataProps = await data.getOnePanel(id)
+    setPanelData(panel)
 
   }
 
@@ -67,30 +71,65 @@ export default function UpdatePanelForm() {
         <DataGrid
           rows={rows}
           columns={columns}
-          onSelectionModelChange={(id: any) => {handleUpdatePanel(id)}}
+          onSelectionModelChange={(id: any) => { handleUpdatePanel(id) }}
         />
         <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
+          <DialogTitle>Indicador</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Alterar dados do indicador
+            </DialogContentText>
+            <Grid container spacing={4} direction="row" justifyContent="center" alignItems="center">
+              <Grid item xs={8}>
+                <TextField
+                  autoFocus
+                  disabled
+                  margin="dense"
+                  label="Nome do indicador"
+                  value={panelData.panel_name}
+                  fullWidth
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Fab color="primary" aria-label="edit" size="small" >
+                  <EditIcon />
+                </Fab>
+              </Grid>
+              <Grid item xs={8}>
+                <TextField
+                  autoFocus
+                  disabled
+                  margin="dense"
+                  label="Link do indicador"
+                  fullWidth
+                  value={panelData.panel_link}
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Fab color="primary" aria-label="edit" size="small" >
+                  <EditIcon />
+                </Fab>
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  autoFocus
+                  disabled
+                  margin="dense"
+                  label="Criado por"
+                  fullWidth
+                  value={panelData.created_by_user}
+                  variant="standard"
+                />
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleClose}>Subscribe</Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Paper>
   )

@@ -26,7 +26,7 @@ export const useApi = () => ({
     const response = await api.get('/logout')
     return response.data;
   },
-  panel: async (panelName: string, panelLink: string) => {
+  storePanel: async (panelName: string, panelLink: string) => {
     const storageData = localStorage.getItem('authToken');
 
     const config = {
@@ -40,6 +40,15 @@ export const useApi = () => ({
       .catch((error) => {
         return error.response.data;
       })
+  },
+  getOnePanel: async (panelId: Number) => {
+    const storageData = localStorage.getItem('authToken');
+    const config = {
+      headers: { 'Authorization': `Bearer ${storageData}` }
+    };
+
+    const response = await api.get(`/panel/${panelId}`, config)
+    return response.data;
   },
   getAllPanel: async () => {
     const storageData = localStorage.getItem('authToken');
