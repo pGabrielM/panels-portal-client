@@ -9,8 +9,11 @@ import { useApi } from "../../../../hooks/useApi";
 interface PanelDataProps {
   id: number
   panel_name: String
-  panel_link: String
-  created_by_user: String
+  link: String
+  status: String
+  order: Number
+  created_by: string
+  created_date: Date
 }
 
 export default function DeletePanelForm() {
@@ -28,18 +31,29 @@ export default function DeletePanelForm() {
   }, [])
 
   const rows = allPanels.map((panel: PanelDataProps, key) => {
-    return { id: panel.id, name: panel.panel_name, link: panel.panel_link, createdBy: panel.created_by_user }
+    return {
+      id: panel.id,
+      name: panel.panel_name,
+      link: panel.link,
+      status: panel.status,
+      order: panel.order,
+      createdBy: panel.created_by,
+      createdDate: panel.created_date
+    }
   })
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 200 },
-    { field: 'name', headerName: 'Nome', width: 300 },
-    { field: 'link', headerName: 'Link', width: 300 },
-    { field: 'createdBy', headerName: 'Criador por', width: 280 },
+    { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'name', headerName: 'Nome', width: 200 },
+    { field: 'link', headerName: 'Link', width: 200 },
+    { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'order', headerName: 'Ordem', width: 80 },
+    { field: 'createdBy', headerName: 'Criador por', width: 200 },
+    { field: 'createdDate', headerName: 'Criado em', width: 300 },
   ];
 
   async function handleDeletePanels() {
-    for(let i = 0; i < panelsToDelete.length; i++) {
+    for (let i = 0; i < panelsToDelete.length; i++) {
       await data.deletePanel(panelsToDelete[i])
       getPanels()
     }
@@ -67,7 +81,7 @@ export default function DeletePanelForm() {
           columns={columns}
           checkboxSelection
           disableSelectionOnClick
-          onSelectionModelChange={(id: any) => {setPanelsToDelete(id)}}
+          onSelectionModelChange={(id: any) => { setPanelsToDelete(id) }}
         />
       </Box>
       <Grid item xs={2} margin={'auto'}>

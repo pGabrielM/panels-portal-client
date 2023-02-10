@@ -72,7 +72,6 @@ export default function CreatePanelForm() {
                 label="Status"
               >
                 <MenuItem value={'active'}>Ativo</MenuItem>
-                <MenuItem value={'disabled'}>Inativo</MenuItem>
               </Select>
             </FormControl>
           </Grid>
