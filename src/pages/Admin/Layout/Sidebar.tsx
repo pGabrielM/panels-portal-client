@@ -21,6 +21,7 @@ import { mainListItems } from './listItems';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { OutletProps, useNavigate } from 'react-router';
 import { AuthContext } from '../../../contexts/Auth/AuthContext';
+import { ToastContainer } from 'react-toastify';
 
 function Copyright(props: any) {
   return (
@@ -170,6 +171,18 @@ export default function Sidebar({OutletElement}: any) {
           <Toolbar />
             {OutletElement}
         </Box>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
+          theme="light"
+        />
       </Box>
     </ThemeProvider>
   );

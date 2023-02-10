@@ -2,6 +2,8 @@ import { Alert, Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabe
 import { Box } from "@mui/system";
 import { FormEvent, useContext, useState } from "react";
 import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface CreatePanelProps {
   status?: boolean
@@ -10,18 +12,21 @@ interface CreatePanelProps {
 
 export default function CreatePanelForm() {
   const data = useContext(DataContext)
+
+
   const [panelName, setPanelName] = useState('');
   const [panelLink, setPanelLink] = useState('');
   const [panelStatus, setPanelStatus] = useState('');
   const [panelOrder, setPanelOrder] = useState('');
-  const [error, setError] = useState(false);
 
   const handleCreatePanel = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const createPanel: CreatePanelProps = await data.storePanel(panelName, panelLink, panelStatus, panelOrder)
 
     if (createPanel.status) {
-      
+      toast.success('Indicador criado com sucesso!')
+    } else {
+      toast.error('Erro ao criar, verifique o formulário!');
     }
   }
 
