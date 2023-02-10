@@ -12,9 +12,21 @@ export default function DataProvider({ children }: { children: JSX.Element }) {
     }
     return {status: true};
   }
+  
+  async function getAllPanels() {
+    const data = await api.getAllPanel()
+
+    return data;
+  }
+
+  async function getOnePanel(id: number) {
+    const data = await api.getOnePanel(id)
+
+    return data;
+  }
 
   return (
-    <DataContext.Provider value={{ storePanel }}>
+    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel }}>
       {children}
     </DataContext.Provider>
   )

@@ -1,20 +1,21 @@
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, FormControlLabel, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, FormControlLabel, Grid, IconButton, Paper, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
-import { useApi } from "../../../../hooks/useApi";
 import { PanelDataProps } from "../../../../interfaces/PanelInterface";
+import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
 
 export default function UpdatePanelForm() {
-  const data = useApi()
-  const [open, setOpen] = useState(false);
-  const [panelData, setPanelData] = useState<any>({})
+  const data = useContext(DataContext)
 
-  const [allPanels, setAllPanels] = useState([])
+  const [open, setOpen] = useState(false);
+  const [panelData, setPanelData] = useState<PanelDataProps>()
+
+  const [allPanels, setAllPanels] = useState<any>([])
 
   const getPanels = async () => {
-    const panels = await data.getAllPanel()
+    const panels = await data.getAllPanels()
     setAllPanels(panels)
   }
 
@@ -44,6 +45,11 @@ export default function UpdatePanelForm() {
     { field: 'createdDate', headerName: 'Criado em', width: 300 },
   ];
 
+  function handleCheckStatus() {
+    if (panelData) {
+
+    }
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -51,7 +57,7 @@ export default function UpdatePanelForm() {
 
   async function handleUpdatePanel(id: number) {
     setOpen(true);
-    const panel: PanelDataProps = await data.getOnePanel(id)
+    const panel: any = await data.getOnePanel(id)
     setPanelData(panel)
 
   }
@@ -88,7 +94,7 @@ export default function UpdatePanelForm() {
                   disabled
                   margin="dense"
                   label="Nome do indicador"
-                  value={panelData.panel_name}
+                  value={panelData?.panel_name}
                   fullWidth
                   variant="standard"
                 />
@@ -105,7 +111,24 @@ export default function UpdatePanelForm() {
                   margin="dense"
                   label="Link do indicador"
                   fullWidth
-                  value={panelData.panel_link}
+                  value={panelData?.link}
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Fab color="primary" aria-label="edit" size="small" >
+                  <EditIcon />
+                </Fab>
+              </Grid>
+
+              <Grid item xs={8}>
+                <TextField
+                  autoFocus
+                  disabled
+                  margin="dense"
+                  label="Criado por"
+                  fullWidth
+                  value={panelData?.created_date}
                   variant="standard"
                 />
               </Grid>
@@ -121,15 +144,29 @@ export default function UpdatePanelForm() {
                   margin="dense"
                   label="Criado por"
                   fullWidth
-                  value={panelData.created_by_user}
+                  value={panelData?.created_by}
                   variant="standard"
                 />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  autoFocus
+                  disabled
+                  margin="dense"
+                  label="Criado em"
+                  fullWidth
+                  value={panelData?.created_date}
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <FormControlLabel control={<Checkbox defaultChecked value={handleCheckStatus()} />} label="Ativo" />
               </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Subscribe</Button>
+            <Button onClick={handleClose}>Salvar</Button>
           </DialogActions>
         </Dialog>
       </Box>
