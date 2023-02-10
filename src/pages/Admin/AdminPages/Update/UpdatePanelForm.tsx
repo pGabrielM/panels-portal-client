@@ -13,6 +13,7 @@ export default function UpdatePanelForm() {
   const [panelData, setPanelData] = useState<PanelDataProps>()
   const [panelStatus, setPanelStatus] = useState(true)
   const [open, setOpen] = useState(false);
+  const [formEditMode, setFormEditMode] = useState(true);
 
   const getPanels = async () => {
     const panels = await data.getAllPanels()
@@ -50,13 +51,17 @@ export default function UpdatePanelForm() {
   };
 
   async function handleUpdatePanel(id: number) {
-    setOpen(true);
     const UniquePanelData: any = await data.getOnePanel(id)
+    const panelIsDisabled = UniquePanelData.status === 'disabled'
+    
     setPanelData(UniquePanelData)
+    setFormEditMode(true)
+    setOpen(true);
 
-    if (UniquePanelData.status === 'disabled') {
+    if (panelIsDisabled) {
       return setPanelStatus(false)
     }
+
     setPanelStatus(true)
   }
 
@@ -81,10 +86,8 @@ export default function UpdatePanelForm() {
         />
         <Dialog open={open} onClose={handleClose}>
           <Box display={'flex'} justifyContent={'space-between'} >
-          <DialogTitle>{`Indicador ${panelData?.panel_name}`}</DialogTitle>
-            <Fab color="primary" style={{margin: 10}} aria-label="edit" size="medium">
-              <EditIcon />
-            </Fab>
+            <DialogTitle>{`Indicador ${panelData?.panel_name}`}</DialogTitle>
+            <FormControlLabel control={<Switch defaultChecked={false}/>} label="Editar" onClick={(e) => {setFormEditMode(!e.target.checked)}} />
           </Box>
           <DialogContent>
             <DialogContentText>
@@ -94,7 +97,7 @@ export default function UpdatePanelForm() {
               <Grid item xs={8}>
                 <TextField
                   autoFocus
-                  disabled
+                  disabled={formEditMode}
                   margin="dense"
                   label="Nome do indicador"
                   value={panelData?.panel_name}
@@ -105,7 +108,7 @@ export default function UpdatePanelForm() {
               <Grid item xs={8}>
                 <TextField
                   autoFocus
-                  disabled
+                  disabled={formEditMode}
                   margin="dense"
                   label="Link do indicador"
                   fullWidth
@@ -116,9 +119,9 @@ export default function UpdatePanelForm() {
               <Grid item xs={8}>
                 <TextField
                   autoFocus
-                  disabled
+                  disabled={formEditMode}
                   margin="dense"
-                  label="Criado por"
+                  label="Status"
                   fullWidth
                   value={panelData?.created_date}
                   variant="standard"
@@ -127,7 +130,7 @@ export default function UpdatePanelForm() {
               <Grid item xs={6}>
                 <TextField
                   autoFocus
-                  disabled
+                  disabled={formEditMode}
                   margin="dense"
                   label="Criado por"
                   fullWidth
@@ -138,7 +141,7 @@ export default function UpdatePanelForm() {
               <Grid item xs={6}>
                 <TextField
                   autoFocus
-                  disabled
+                  disabled={formEditMode}
                   margin="dense"
                   label="Criado em"
                   fullWidth
