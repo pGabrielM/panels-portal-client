@@ -4,13 +4,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { useApi } from "../../../../hooks/useApi";
-
-interface PanelDataProps {
-  id: number
-  panel_name: String
-  panel_link: String
-  created_by_user: String
-}
+import { PanelDataProps } from "../../../../interfaces/PanelInterface";
 
 export default function UpdatePanelForm() {
   const data = useApi()
@@ -21,7 +15,6 @@ export default function UpdatePanelForm() {
 
   const getPanels = async () => {
     const panels = await data.getAllPanel()
-    console.log(panels)
     setAllPanels(panels)
   }
 
@@ -29,23 +22,32 @@ export default function UpdatePanelForm() {
     getPanels()
   }, [])
 
-  const rows = allPanels.map((panel: PanelDataProps, key) => {
-    return { id: panel.id, name: panel.panel_name, link: panel.panel_link, createdBy: panel.created_by_user }
+  const rows = allPanels.map((panel: PanelDataProps) => {
+    return {
+      id: panel.id,
+      name: panel.panel_name,
+      link: panel.link,
+      status: panel.status,
+      order: panel.order,
+      createdBy: panel.created_by,
+      createdDate: panel.created_date
+    }
   })
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 200 },
-    { field: 'name', headerName: 'Nome', width: 300 },
-    { field: 'link', headerName: 'Link', width: 300 },
-    { field: 'createdBy', headerName: 'Criador por', width: 280 },
+    { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'name', headerName: 'Nome', width: 200 },
+    { field: 'link', headerName: 'Link', width: 200 },
+    { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'order', headerName: 'Ordem', width: 80 },
+    { field: 'createdBy', headerName: 'Criador por', width: 200 },
+    { field: 'createdDate', headerName: 'Criado em', width: 300 },
   ];
 
 
   const handleClose = () => {
     setOpen(false);
   };
-
-  console.log(typeof panelData)
 
   async function handleUpdatePanel(id: number) {
     setOpen(true);

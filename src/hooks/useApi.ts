@@ -26,14 +26,14 @@ export const useApi = () => ({
     const response = await api.get('/logout')
     return response.data;
   },
-  storePanel: async (panelName: string, panelLink: string) => {
+  storePanel: async (panelName: string, link: string, status: string, order: string) => {
     const storageData = localStorage.getItem('authToken');
 
     const config = {
       headers: { 'Authorization': `Bearer ${storageData}` }
     };
     
-    return await api.post('/panel', { panelName, panelLink }, config)
+    return await api.post('/panel', { panelName, link, status, order }, config)
       .then((response) => {
         return response.data;
       })

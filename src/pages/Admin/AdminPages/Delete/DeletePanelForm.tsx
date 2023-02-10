@@ -1,20 +1,11 @@
-import { Button, Checkbox, FormControlLabel, Grid, IconButton, Paper, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
+import { Button, Grid, Paper, Toolbar, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { DataGrid, GridColDef, GridRowId, GridRowsProp, GridSelectionModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { Container, Table } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useApi } from "../../../../hooks/useApi";
+import { PanelDataProps } from "../../../../interfaces/PanelInterface";
 
-interface PanelDataProps {
-  id: number
-  panel_name: String
-  link: String
-  status: String
-  order: Number
-  created_by: string
-  created_date: Date
-}
+
 
 export default function DeletePanelForm() {
   const data = useApi()
@@ -30,7 +21,7 @@ export default function DeletePanelForm() {
     getPanels()
   }, [])
 
-  const rows = allPanels.map((panel: PanelDataProps, key) => {
+  const rows = allPanels.map((panel: PanelDataProps) => {
     return {
       id: panel.id,
       name: panel.panel_name,
@@ -59,7 +50,6 @@ export default function DeletePanelForm() {
     }
 
     return data
-
   }
 
   return (
