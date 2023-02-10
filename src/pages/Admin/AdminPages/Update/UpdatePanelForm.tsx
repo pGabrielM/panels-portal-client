@@ -15,15 +15,6 @@ export default function UpdatePanelForm() {
   const [open, setOpen] = useState(false);
   const [formEditMode, setFormEditMode] = useState(true);
 
-  const getPanels = async () => {
-    const panels = await data.getAllPanels()
-    setAllPanels(panels)
-  }
-
-  useEffect(() => {
-    getPanels()
-  }, [])
-
   const rows = allPanels.map((panel: PanelDataProps) => {
     return {
       id: panel.id,
@@ -46,9 +37,14 @@ export default function UpdatePanelForm() {
     { field: 'createdDate', headerName: 'Criado em', width: 300 },
   ];
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  async function getPanels() {
+    const panels = await data.getAllPanels()
+    setAllPanels(panels)
+  }
+
+  useEffect(() => {
+    getPanels()
+  }, [])
 
   async function handleUpdatePanel(id: number) {
     const UniquePanelData: any = await data.getOnePanel(id)
@@ -64,6 +60,10 @@ export default function UpdatePanelForm() {
 
     setPanelStatus(true)
   }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Paper
