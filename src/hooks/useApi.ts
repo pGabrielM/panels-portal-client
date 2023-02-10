@@ -38,7 +38,7 @@ export const useApi = () => ({
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
+        return error.response;
       })
   },
   getOnePanel: async (panelId: Number) => {

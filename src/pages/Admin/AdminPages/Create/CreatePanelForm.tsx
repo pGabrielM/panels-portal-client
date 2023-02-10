@@ -1,26 +1,28 @@
-import { Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField, Typography } from "@mui/material";
+import { Alert, Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField, Typography, Zoom } from "@mui/material";
 import { Box } from "@mui/system";
 import { FormEvent, useContext, useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
-import { useApi } from "../../../../hooks/useApi";
+import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
 
+interface CreatePanelProps {
+  status?: boolean
+  message?: string
+}
 
 export default function CreatePanelForm() {
-  const data = useApi()
-
+  const data = useContext(DataContext)
   const [panelName, setPanelName] = useState('');
   const [panelLink, setPanelLink] = useState('');
   const [panelStatus, setPanelStatus] = useState('');
   const [panelOrder, setPanelOrder] = useState('');
-
-  console.log(panelStatus)
-  console.log(panelOrder)
+  const [error, setError] = useState(false);
 
   const handleCreatePanel = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const created = await data.storePanel(panelName, panelLink, panelStatus, panelOrder)
+    const createPanel: CreatePanelProps = await data.storePanel(panelName, panelLink, panelStatus, panelOrder)
 
-    return created
+    if (createPanel.status) {
+      
+    }
   }
 
   return (
@@ -36,7 +38,7 @@ export default function CreatePanelForm() {
       <Typography variant="h6" gutterBottom>
         Preencha o formulário para adicionar um novo indicador.
       </Typography>
-      <Box component="form" onSubmit={handleCreatePanel} noValidate sx={{ mt: 1 }}>
+      <Box component="form" onSubmit={handleCreatePanel} sx={{ mt: 1 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
