@@ -9,10 +9,10 @@ import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
 export default function UpdatePanelForm() {
   const data = useContext(DataContext)
 
-  const [open, setOpen] = useState(false);
-  const [panelData, setPanelData] = useState<PanelDataProps>()
-
   const [allPanels, setAllPanels] = useState<any>([])
+  const [panelData, setPanelData] = useState<PanelDataProps>()
+  const [panelStatus, setPanelStatus] = useState(true)
+  const [open, setOpen] = useState(false);
 
   const getPanels = async () => {
     const panels = await data.getAllPanels()
@@ -45,21 +45,19 @@ export default function UpdatePanelForm() {
     { field: 'createdDate', headerName: 'Criado em', width: 300 },
   ];
 
-  function handleCheckStatus() {
-    if (panelData) {
-
-    }
-  }
-
   const handleClose = () => {
     setOpen(false);
   };
 
   async function handleUpdatePanel(id: number) {
     setOpen(true);
-    const panel: any = await data.getOnePanel(id)
-    setPanelData(panel)
+    const UniquePanelData: any = await data.getOnePanel(id)
+    setPanelData(UniquePanelData)
 
+    if (UniquePanelData.status === 'disabled') {
+      return setPanelStatus(false)
+    }
+    setPanelStatus(true)
   }
 
   return (
@@ -82,12 +80,17 @@ export default function UpdatePanelForm() {
           onSelectionModelChange={(id: any) => { handleUpdatePanel(id) }}
         />
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Indicador</DialogTitle>
+          <Box display={'flex'} justifyContent={'space-between'} >
+          <DialogTitle>{`Indicador ${panelData?.panel_name}`}</DialogTitle>
+            <Fab color="primary" style={{margin: 10}} aria-label="edit" size="medium">
+              <EditIcon />
+            </Fab>
+          </Box>
           <DialogContent>
             <DialogContentText>
               Alterar dados do indicador
             </DialogContentText>
-            <Grid container spacing={4} direction="row" justifyContent="center" alignItems="center">
+            <Grid container spacing={4} direction="row" justifyContent="left" alignItems="center">
               <Grid item xs={8}>
                 <TextField
                   autoFocus
@@ -98,11 +101,6 @@ export default function UpdatePanelForm() {
                   fullWidth
                   variant="standard"
                 />
-              </Grid>
-              <Grid item xs={2}>
-                <Fab color="primary" aria-label="edit" size="small" >
-                  <EditIcon />
-                </Fab>
               </Grid>
               <Grid item xs={8}>
                 <TextField
@@ -115,12 +113,6 @@ export default function UpdatePanelForm() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={2}>
-                <Fab color="primary" aria-label="edit" size="small" >
-                  <EditIcon />
-                </Fab>
-              </Grid>
-
               <Grid item xs={8}>
                 <TextField
                   autoFocus
@@ -131,11 +123,6 @@ export default function UpdatePanelForm() {
                   value={panelData?.created_date}
                   variant="standard"
                 />
-              </Grid>
-              <Grid item xs={2}>
-                <Fab color="primary" aria-label="edit" size="small" >
-                  <EditIcon />
-                </Fab>
               </Grid>
               <Grid item xs={6}>
                 <TextField
@@ -160,7 +147,7 @@ export default function UpdatePanelForm() {
                 />
               </Grid>
               <Grid item xs={4}>
-                <FormControlLabel control={<Checkbox defaultChecked value={handleCheckStatus()} />} label="Ativo" />
+                <FormControlLabel control={<Checkbox checked={panelStatus} disabled />} label={panelStatus ? 'Ativo' : 'Inativo'} />
               </Grid>
             </Grid>
           </DialogContent>
