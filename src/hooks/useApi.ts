@@ -59,6 +59,15 @@ export const useApi = () => ({
     const response = await api.get('/panel', config)
     return response.data;
   },
+  updatePanel: async (panelId: number, panelDataToUpdate: Object) => {
+    const storageData = localStorage.getItem('authToken');
+    const config = {
+      headers: { 'Authorization': `Bearer ${storageData}` }
+    };
+
+    const response = await api.patch(`/panel/${panelId}`, panelDataToUpdate,config)
+    return response.data;
+  },
   deletePanel: async (panelId: Number) => {
     const storageData = localStorage.getItem('authToken');
     const config = {

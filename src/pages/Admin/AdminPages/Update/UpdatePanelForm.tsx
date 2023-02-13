@@ -1,9 +1,15 @@
 import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, FormControlLabel, Grid, IconButton, Paper, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useContext, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { PanelDataProps } from "../../../../interfaces/PanelInterface";
 import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
+
+interface UpdatePanelProps {
+  panel_name?: string
+  link?: string
+  status?: string
+}
 
 export default function UpdatePanelForm() {
   const data = useContext(DataContext)
@@ -13,6 +19,11 @@ export default function UpdatePanelForm() {
   const [panelStatus, setPanelStatus] = useState(true);
   const [open, setOpen] = useState(false);
   const [formEditMode, setFormEditMode] = useState(true);
+  const [currentPanelId, setCurrentPanelId] = useState<Number>();
+
+  const [panelFormName, setPanelFormName] = useState('')
+  const [panelFormLink, setPanelFormLink] = useState('')
+  const [panelFormStatus, setPanelFormStatus] = useState('')
 
   const rows = allPanels.map((panel: PanelDataProps) => {
     return {
@@ -45,19 +56,41 @@ export default function UpdatePanelForm() {
     getPanels()
   }, [])
 
-  async function handleUpdatePanel(id: number) {
+  async function handleGetPanelToUpdate(id: number) {
     const UniquePanelData: any = await data.getOnePanel(id)
     const panelIsDisabled = UniquePanelData.status === 'disabled'
-    
+
+    setPanelFormName('')
+    setPanelFormLink('')
+    setPanelFormStatus('')
     setPanelData(UniquePanelData)
     setFormEditMode(true)
     setOpen(true);
+    setCurrentPanelId(id);
 
     if (panelIsDisabled) {
       return setPanelStatus(false)
     }
 
     setPanelStatus(true)
+  }
+
+  async function handleUpdatePanel(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    var panelDataToUpdate: UpdatePanelProps = {}
+    console.log(e.target)
+
+    if(panelFormName !== "") panelDataToUpdate.panel_name = panelFormName
+    if(panelFormLink !== "") panelDataToUpdate.link = panelFormLink
+    if(panelFormStatus !== "") panelDataToUpdate.status = panelFormStatus
+    
+    console.log(panelDataToUpdate)
+
+
+    await data.updatePanel(currentPanelId, panelDataToUpdate)
+
+    getPanels()
+    setOpen(false);
   }
 
   const handleClose = () => {
@@ -81,84 +114,89 @@ export default function UpdatePanelForm() {
         <DataGrid
           rows={rows}
           columns={columns}
-          onSelectionModelChange={(id: any) => { handleUpdatePanel(id) }}
+          onSelectionModelChange={(id: any) => { handleGetPanelToUpdate(id) }}
         />
         <Dialog open={open} onClose={handleClose}>
           <Box display={'flex'} justifyContent={'space-between'} >
             <DialogTitle>{`Indicador ${panelData?.panel_name}`}</DialogTitle>
-            <FormControlLabel control={<Switch defaultChecked={false}/>} label="Editar" onClick={(e) => {setFormEditMode(!(e.target as HTMLInputElement).checked)}} />
+            <FormControlLabel control={<Switch defaultChecked={false} />} label="Editar" onClick={(e) => { setFormEditMode(!(e.target as HTMLInputElement).checked) }} />
           </Box>
-          <DialogContent>
-            <DialogContentText>
-              Alterar dados do indicador
-            </DialogContentText>
-            <Grid container spacing={4} direction="row" justifyContent="left" alignItems="center">
-              <Grid item xs={8}>
-                <TextField
-                  autoFocus
-                  disabled={formEditMode}
-                  margin="dense"
-                  label="Nome do indicador"
-                  defaultValue={panelData?.panel_name}
-                  fullWidth
-                  variant="standard"
-                />
+          <Box component="form" onSubmit={handleUpdatePanel} >
+            <DialogContent>
+              <DialogContentText>
+                Alterar dados do indicador
+              </DialogContentText>
+              <Grid container spacing={4} direction="row" justifyContent="left" alignItems="center">
+                <Grid item xs={8}>
+                  <TextField
+                    autoFocus
+                    disabled={formEditMode}
+                    margin="dense"
+                    label="Nome do indicador"
+                    defaultValue={panelData?.panel_name}
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => {setPanelFormName(e.target.value)}}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    autoFocus
+                    disabled={formEditMode}
+                    margin="dense"
+                    label="Link do indicador"
+                    fullWidth
+                    defaultValue={panelData?.link}
+                    variant="standard"
+                    onChange={(e) => {setPanelFormLink(e.target.value)}}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    autoFocus
+                    disabled={formEditMode}
+                    margin="dense"
+                    label="Status"
+                    fullWidth
+                    defaultValue={panelData?.status}
+                    variant="standard"
+                    onChange={(e) => {setPanelFormStatus(e.target.value)}}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    autoFocus
+                    disabled
+                    margin="dense"
+                    label="Criado por"
+                    fullWidth
+                    defaultValue={panelData?.created_by}
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    autoFocus
+                    disabled
+                    margin="dense"
+                    label="Criado em"
+                    fullWidth
+                    defaultValue={panelData?.created_date}
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel control={<Checkbox checked={panelStatus} disabled />} label={panelStatus ? 'Ativo' : 'Inativo'} />
+                </Grid>
               </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  autoFocus
-                  disabled={formEditMode}
-                  margin="dense"
-                  label="Link do indicador"
-                  fullWidth
-                  defaultValue={panelData?.link}
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  autoFocus
-                  disabled={formEditMode}
-                  margin="dense"
-                  label="Status"
-                  fullWidth
-                  defaultValue={panelData?.status}
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  autoFocus
-                  disabled
-                  margin="dense"
-                  label="Criado por"
-                  fullWidth
-                  defaultValue={panelData?.created_by}
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  autoFocus
-                  disabled
-                  margin="dense"
-                  label="Criado em"
-                  fullWidth
-                  defaultValue={panelData?.created_date}
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel control={<Checkbox checked={panelStatus} disabled />} label={panelStatus ? 'Ativo' : 'Inativo'} />
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            { !formEditMode &&
-              <Button onClick={handleClose}>Salvar</Button>
-            }
-          </DialogActions>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              {!formEditMode &&
+                <Button type="submit">Salvar</Button>
+              }
+            </DialogActions>
+          </Box>
         </Dialog>
       </Box>
     </Paper>

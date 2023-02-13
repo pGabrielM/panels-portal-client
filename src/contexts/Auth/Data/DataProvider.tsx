@@ -25,8 +25,14 @@ export default function DataProvider({ children }: { children: JSX.Element }) {
     return data;
   }
 
+  async function updatePanel(id: number, panelDataToUpdate: Object) {
+    const data = await api.updatePanel(id, panelDataToUpdate)
+
+    return data
+  }
+
   return (
-    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel }}>
+    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel, updatePanel }}>
       {children}
     </DataContext.Provider>
   )
