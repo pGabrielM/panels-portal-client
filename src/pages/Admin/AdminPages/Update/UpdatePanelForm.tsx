@@ -2,16 +2,15 @@ import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentTe
 import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useContext, useEffect, useState } from "react";
-import EditIcon from '@mui/icons-material/Edit';
 import { PanelDataProps } from "../../../../interfaces/PanelInterface";
 import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
 
 export default function UpdatePanelForm() {
   const data = useContext(DataContext)
 
-  const [allPanels, setAllPanels] = useState<any>([])
-  const [panelData, setPanelData] = useState<PanelDataProps>()
-  const [panelStatus, setPanelStatus] = useState(true)
+  const [allPanels, setAllPanels] = useState<any>([]);
+  const [panelData, setPanelData] = useState<PanelDataProps>();
+  const [panelStatus, setPanelStatus] = useState(true);
   const [open, setOpen] = useState(false);
   const [formEditMode, setFormEditMode] = useState(true);
 
@@ -100,7 +99,7 @@ export default function UpdatePanelForm() {
                   disabled={formEditMode}
                   margin="dense"
                   label="Nome do indicador"
-                  value={panelData?.panel_name}
+                  defaultValue={panelData?.panel_name}
                   fullWidth
                   variant="standard"
                 />
@@ -112,7 +111,7 @@ export default function UpdatePanelForm() {
                   margin="dense"
                   label="Link do indicador"
                   fullWidth
-                  value={panelData?.link}
+                  defaultValue={panelData?.link}
                   variant="standard"
                 />
               </Grid>
@@ -123,29 +122,29 @@ export default function UpdatePanelForm() {
                   margin="dense"
                   label="Status"
                   fullWidth
-                  value={panelData?.created_date}
+                  defaultValue={panelData?.status}
                   variant="standard"
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
                   autoFocus
-                  disabled={formEditMode}
+                  disabled
                   margin="dense"
                   label="Criado por"
                   fullWidth
-                  value={panelData?.created_by}
+                  defaultValue={panelData?.created_by}
                   variant="standard"
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
                   autoFocus
-                  disabled={formEditMode}
+                  disabled
                   margin="dense"
                   label="Criado em"
                   fullWidth
-                  value={panelData?.created_date}
+                  defaultValue={panelData?.created_date}
                   variant="standard"
                 />
               </Grid>
@@ -156,7 +155,9 @@ export default function UpdatePanelForm() {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Salvar</Button>
+            { !formEditMode &&
+              <Button onClick={handleClose}>Salvar</Button>
+            }
           </DialogActions>
         </Dialog>
       </Box>
