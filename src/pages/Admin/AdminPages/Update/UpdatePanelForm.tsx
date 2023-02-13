@@ -117,7 +117,7 @@ export default function UpdatePanelForm() {
             <DialogTitle>{`Indicador ${panelData?.panel_name}`}</DialogTitle>
             <FormControlLabel control={<Switch defaultChecked={false} />} label="Editar" onClick={(e) => { setFormEditMode(!(e.target as HTMLInputElement).checked) }} />
           </Box>
-          <Box component="form" onSubmit={handleUpdatePanel} >
+          <Box component="form" onSubmit={handleUpdatePanel}>
             <DialogContent>
               <DialogContentText>
                 Alterar dados do indicador
@@ -125,6 +125,7 @@ export default function UpdatePanelForm() {
               <Grid container spacing={4} direction="row" justifyContent="left" alignItems="center">
                 <Grid item xs={8}>
                   <TextField
+                    required
                     autoFocus
                     disabled={formEditMode}
                     margin="dense"
@@ -137,6 +138,7 @@ export default function UpdatePanelForm() {
                 </Grid>
                 <Grid item xs={8}>
                   <TextField
+                    required
                     autoFocus
                     disabled={formEditMode}
                     margin="dense"
@@ -149,6 +151,7 @@ export default function UpdatePanelForm() {
                 </Grid>
                 <Grid item xs={8}>
                   <TextField
+                    required
                     autoFocus
                     disabled={formEditMode}
                     margin="dense"
@@ -161,6 +164,7 @@ export default function UpdatePanelForm() {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
+                    required
                     autoFocus
                     disabled
                     margin="dense"
@@ -172,6 +176,7 @@ export default function UpdatePanelForm() {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
+                    required
                     autoFocus
                     disabled
                     margin="dense"
