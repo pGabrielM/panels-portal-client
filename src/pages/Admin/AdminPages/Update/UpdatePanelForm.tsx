@@ -19,7 +19,7 @@ export default function UpdatePanelForm() {
   const [panelStatus, setPanelStatus] = useState(true);
   const [open, setOpen] = useState(false);
   const [formEditMode, setFormEditMode] = useState(true);
-  const [currentPanelId, setCurrentPanelId] = useState<Number>();
+  const [currentPanelId, setCurrentPanelId] = useState<number>(0);
 
   const [panelFormName, setPanelFormName] = useState('')
   const [panelFormLink, setPanelFormLink] = useState('')
@@ -78,18 +78,14 @@ export default function UpdatePanelForm() {
   async function handleUpdatePanel(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     var panelDataToUpdate: UpdatePanelProps = {}
-    console.log(e.target)
 
     if(panelFormName !== "") panelDataToUpdate.panel_name = panelFormName
     if(panelFormLink !== "") panelDataToUpdate.link = panelFormLink
     if(panelFormStatus !== "") panelDataToUpdate.status = panelFormStatus
     
-    console.log(panelDataToUpdate)
-
-
     await data.updatePanel(currentPanelId, panelDataToUpdate)
 
-    getPanels()
+    getPanels();
     setOpen(false);
   }
 
