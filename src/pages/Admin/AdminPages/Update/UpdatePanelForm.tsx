@@ -87,7 +87,7 @@ export default function UpdatePanelForm() {
         <Dialog open={open} onClose={handleClose}>
           <Box display={'flex'} justifyContent={'space-between'} >
             <DialogTitle>{`Indicador ${panelData?.panel_name}`}</DialogTitle>
-            <FormControlLabel control={<Switch defaultChecked={false}/>} label="Editar" onClick={(e) => {setFormEditMode(!e.target.checked)}} />
+            <FormControlLabel control={<Switch defaultChecked={false}/>} label="Editar" onClick={(e) => {setFormEditMode(!(e.target as HTMLInputElement).checked)}} />
           </Box>
           <DialogContent>
             <DialogContentText>
