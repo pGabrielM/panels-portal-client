@@ -2,8 +2,10 @@ import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddToQueueIcon from '@mui/icons-material/AddToQueue';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
+import HomeIcon from '@mui/icons-material/Home';;
+import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
 import { Link } from 'react-router-dom';
 
 export const mainListItems = (
@@ -11,7 +13,7 @@ export const mainListItems = (
     <Link to={'/admin'}>
       <ListItemButton>
         <ListItemIcon>
-          <DashboardIcon />
+          <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Inicio" />
       </ListItemButton>
@@ -27,7 +29,7 @@ export const mainListItems = (
     <Link to={'/admin/delete'}>
       <ListItemButton>
         <ListItemIcon>
-          <AddToQueueIcon />
+          <CancelPresentationIcon />
         </ListItemIcon>
         <ListItemText primary="Remover Painel" />
       </ListItemButton>
@@ -35,7 +37,7 @@ export const mainListItems = (
     <Link to={'/admin/update'}>
       <ListItemButton>
         <ListItemIcon>
-          <AddToQueueIcon />
+          <BrowserUpdatedIcon />
         </ListItemIcon>
         <ListItemText primary="Atualizar Painel" />
       </ListItemButton>
