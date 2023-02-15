@@ -16,12 +16,23 @@ export default function CreatePanelForm() {
 
   const [panelName, setPanelName] = useState('');
   const [panelLink, setPanelLink] = useState('');
+  const [panelOrder, setPanelOrder] = useState<any>();
+  const [panelSectorId, setPanelSectorId] = useState<any>();
+  const [panelCategoryId, setPanelCategoryId] = useState<any>();
+  const [panelSubCategoryId, setPanelSubCategoryId] = useState<any>();
   const [panelStatus, setPanelStatus] = useState('');
-  const [panelOrder, setPanelOrder] = useState('');
 
   const handleCreatePanel = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const createPanel: CreatePanelProps = await data.storePanel(panelName, panelLink, panelStatus, panelOrder)
+    const createPanel: CreatePanelProps = await data.storePanel(
+      panelName,
+      panelLink,
+      panelOrder,
+      panelSectorId,
+      panelCategoryId,
+      panelSubCategoryId,
+      panelStatus
+    )
 
     if (createPanel.status) {
       toast.success('Indicador criado com sucesso!')
@@ -67,6 +78,54 @@ export default function CreatePanelForm() {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              label="Ordem de exibição"
+              type={'number'}
+              fullWidth
+              autoComplete="family-name"
+              variant="standard"
+              onChange={(e) => setPanelOrder(e.target.value)}
+              value={panelOrder}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              label="Código setor"
+              type={'number'}
+              fullWidth
+              autoComplete="family-name"
+              variant="standard"
+              onChange={(e) => setPanelSectorId(e.target.value)}
+              value={panelSectorId}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              label="Código categoria"
+              type={'number'}
+              fullWidth
+              autoComplete="family-name"
+              variant="standard"
+              onChange={(e) => setPanelCategoryId(e.target.value)}
+              value={panelCategoryId}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              label="Código subcategoria"
+              type={'number'}
+              fullWidth
+              autoComplete="family-name"
+              variant="standard"
+              onChange={(e) => setPanelSubCategoryId(e.target.value)}
+              value={panelSubCategoryId}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>Status</InputLabel>
               <Select
@@ -76,19 +135,6 @@ export default function CreatePanelForm() {
               >
                 <MenuItem value={'active'}>Ativo</MenuItem>
                 <MenuItem value={'disabled'}>Inativo</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Ordem de exibição</InputLabel>
-              <Select
-                defaultValue={''}
-                label="Ordem de exibição"
-                onChange={(e) => setPanelOrder(e.target.value)}
-              >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
               </Select>
             </FormControl>
           </Grid>

@@ -26,14 +26,22 @@ export const useApi = () => ({
     const response = await api.get('/logout')
     return response.data;
   },
-  storePanel: async (panelName: string, link: string, status: string, order: string) => {
+  storePanel: async (
+    panel_name: string,
+    panel_link: string,
+    order: string,
+    sector_id: number,
+    category_id: number,
+    subcategory_id: number,
+    status: string
+    ) => {
     const storageData = localStorage.getItem('authToken');
 
     const config = {
       headers: { 'Authorization': `Bearer ${storageData}` }
     };
-    
-    return await api.post('/panel', { panelName, link, status, order }, config)
+
+    return await api.post('/panel', { panel_name, panel_link, order, sector_id, category_id, subcategory_id, status }, config)
       .then((response) => {
         return response.data;
       })
@@ -65,7 +73,7 @@ export const useApi = () => ({
       headers: { 'Authorization': `Bearer ${storageData}` }
     };
 
-    const response = await api.patch(`/panel/${panelId}`, panelDataToUpdate,config)
+    const response = await api.patch(`/panel/${panelId}`, panelDataToUpdate, config)
     return response.data;
   },
   deletePanel: async (panelId: Number) => {
