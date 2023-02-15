@@ -27,11 +27,14 @@ export default function UpdatePanelForm() {
 
   const rows = allPanels.map((panel: PanelDataProps) => {
     return {
-      id: panel.id,
+      id: panel.panel_id,
       name: panel.panel_name,
-      link: panel.link,
-      status: panel.status,
+      link: panel.panel_link,
       order: panel.order,
+      sectorId: panel.sector_id,
+      categoryId: panel.category_id,
+      subCategoryId: panel.subcategory_id,
+      status: panel.status,
       createdBy: panel.created_by,
       createdDate: panel.created_date
     }
@@ -40,10 +43,13 @@ export default function UpdatePanelForm() {
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 50 },
     { field: 'name', headerName: 'Nome', width: 200 },
-    { field: 'link', headerName: 'Link', width: 200 },
-    { field: 'status', headerName: 'Status', width: 100 },
-    { field: 'order', headerName: 'Ordem', width: 80 },
-    { field: 'createdBy', headerName: 'Criador por', width: 200 },
+    { field: 'link', headerName: 'Link', width: 180 },
+    { field: 'order', headerName: 'Ordem', width: 75 },
+    { field: 'sectorId', headerName: 'ID Setor', width: 70 },
+    { field: 'categoryId', headerName: 'ID Categoria', width: 100 },
+    { field: 'subcategoryId', headerName: 'ID Subcategoria', width: 130 },
+    { field: 'status', headerName: 'Status', width: 80 },
+    { field: 'createdBy', headerName: 'Criador por', width: 120 },
     { field: 'createdDate', headerName: 'Criado em', width: 300 },
   ];
 
@@ -144,7 +150,7 @@ export default function UpdatePanelForm() {
                     margin="dense"
                     label="Link do indicador"
                     fullWidth
-                    defaultValue={panelData?.link}
+                    defaultValue={panelData?.panel_link}
                     variant="standard"
                     onChange={(e) => {setPanelFormLink(e.target.value)}}
                   />

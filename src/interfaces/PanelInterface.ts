@@ -1,9 +1,12 @@
 export interface PanelDataProps {
-  id: number
+  panel_id: number
   panel_name: String
-  link: String
-  status: String
+  panel_link: String
   order: Number
+  sector_id: Number
+  category_id: Number
+  subcategory_id: Number
+  status: String
   created_by: string
   created_date: Date
 }
