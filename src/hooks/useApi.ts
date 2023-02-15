@@ -48,6 +48,9 @@ export const useApi = () => ({
       .catch((error) => {
         return error.response;
       })
+      .catch((error) => {
+        return error.response.data;
+      })
   },
   getOnePanel: async (panelId: Number) => {
     const storageData = localStorage.getItem('authToken');

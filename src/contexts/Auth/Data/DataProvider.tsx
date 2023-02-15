@@ -16,7 +16,7 @@ export default function DataProvider({ children }: { children: JSX.Element }) {
     const store = await api.storePanel(panel_name, panel_link, order, sector_id, category_id, subcategory_id, status)
 
     if (store.status === 400 || store.status === 500) {
-      return { status: false, message: store.data };
+      return { status: false, message: store.data.message };
     }
     return { status: true };
   }

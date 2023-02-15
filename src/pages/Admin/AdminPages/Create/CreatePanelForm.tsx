@@ -13,7 +13,6 @@ interface CreatePanelProps {
 export default function CreatePanelForm() {
   const data = useContext(DataContext)
 
-
   const [panelName, setPanelName] = useState('');
   const [panelLink, setPanelLink] = useState('');
   const [panelOrder, setPanelOrder] = useState<any>();
@@ -37,7 +36,7 @@ export default function CreatePanelForm() {
     if (createPanel.status) {
       toast.success('Indicador criado com sucesso!')
     } else {
-      toast.error('Erro ao criar, verifique o formulário!');
+      toast.error(createPanel.message);
     }
   }
 
