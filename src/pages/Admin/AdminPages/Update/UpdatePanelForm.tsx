@@ -6,9 +6,16 @@ import { PanelDataProps } from "../../../../interfaces/PanelInterface";
 import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
 
 interface UpdatePanelProps {
-  panel_name?: string
-  link?: string
-  status?: string
+  panel_id?: number
+  panel_name?: String
+  panel_link?: String
+  order?: Number
+  sector_id?: Number
+  category_id?: Number
+  subcategory_id?: Number
+  status?: String
+  created_by?: string
+  created_date?: Date
 }
 
 export default function UpdatePanelForm() {
@@ -21,9 +28,13 @@ export default function UpdatePanelForm() {
   const [formEditMode, setFormEditMode] = useState(true);
   const [currentPanelId, setCurrentPanelId] = useState<number>(0);
 
-  const [panelFormName, setPanelFormName] = useState('')
-  const [panelFormLink, setPanelFormLink] = useState('')
-  const [panelFormStatus, setPanelFormStatus] = useState('')
+  const [panelFormName, setPanelFormName] = useState<any>();
+  const [panelFormLink, setPanelFormLink] = useState<any>();
+  const [panelFormOrder, setPanelFormOrder] = useState<any>();
+  const [panelFormSectorId, setPanelFormSectorId] = useState<any>();
+  const [panelFormCategoryId, setPanelFormCategoryId] = useState<any>();
+  const [panelFormSubCategoryId, setPanelFormSubCategoryId] = useState<any>();
+  const [panelFormStatus, setPanelFormStatus] = useState<any>();
 
   const rows = allPanels.map((panel: PanelDataProps) => {
     return {
@@ -47,7 +58,7 @@ export default function UpdatePanelForm() {
     { field: 'order', headerName: 'Ordem', width: 75 },
     { field: 'sectorId', headerName: 'ID Setor', width: 70 },
     { field: 'categoryId', headerName: 'ID Categoria', width: 100 },
-    { field: 'subcategoryId', headerName: 'ID Subcategoria', width: 130 },
+    { field: 'subCategoryId', headerName: 'ID Subcategoria', width: 130 },
     { field: 'status', headerName: 'Status', width: 80 },
     { field: 'createdBy', headerName: 'Criador por', width: 120 },
     { field: 'createdDate', headerName: 'Criado em', width: 300 },
@@ -66,9 +77,14 @@ export default function UpdatePanelForm() {
     const UniquePanelData: any = await data.getOnePanel(id)
     const panelIsDisabled = UniquePanelData.status === 'disabled'
 
-    setPanelFormName('')
-    setPanelFormLink('')
-    setPanelFormStatus('')
+    setPanelFormName(null)
+    setPanelFormLink(null)
+    setPanelFormStatus(null)
+    setPanelFormOrder(null)
+    setPanelFormSectorId(null)
+    setPanelFormCategoryId(null)
+    setPanelFormSubCategoryId(null)
+
     setPanelData(UniquePanelData)
     setFormEditMode(true)
     setOpen(true);
@@ -85,9 +101,13 @@ export default function UpdatePanelForm() {
     e.preventDefault()
     var panelDataToUpdate: UpdatePanelProps = {}
 
-    if(panelFormName !== "") panelDataToUpdate.panel_name = panelFormName
-    if(panelFormLink !== "") panelDataToUpdate.link = panelFormLink
-    if(panelFormStatus !== "") panelDataToUpdate.status = panelFormStatus
+    if(panelFormName !== null) panelDataToUpdate.panel_name = panelFormName
+    if(panelFormLink !== null) panelDataToUpdate.panel_link = panelFormLink
+    if(panelFormOrder !== null) panelDataToUpdate.order = panelFormOrder
+    if(panelFormSectorId !== null) panelDataToUpdate.sector_id = panelFormSectorId
+    if(panelFormCategoryId !== null) panelDataToUpdate.category_id = panelFormCategoryId
+    if(panelFormSubCategoryId !== null) panelDataToUpdate.subcategory_id = panelFormSubCategoryId
+    if(panelFormStatus !== null) panelDataToUpdate.status = panelFormStatus
     
     await data.updatePanel(currentPanelId, panelDataToUpdate)
 
@@ -153,6 +173,58 @@ export default function UpdatePanelForm() {
                     defaultValue={panelData?.panel_link}
                     variant="standard"
                     onChange={(e) => {setPanelFormLink(e.target.value)}}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    required
+                    autoFocus
+                    disabled={formEditMode}
+                    margin="dense"
+                    label="Ordem do indicador"
+                    fullWidth
+                    defaultValue={panelData?.order}
+                    variant="standard"
+                    onChange={(e) => {setPanelFormOrder(e.target.value)}}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    required
+                    autoFocus
+                    disabled={formEditMode}
+                    margin="dense"
+                    label="ID Setor"
+                    fullWidth
+                    defaultValue={panelData?.sector_id}
+                    variant="standard"
+                    onChange={(e) => {setPanelFormSectorId(e.target.value)}}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    required
+                    autoFocus
+                    disabled={formEditMode}
+                    margin="dense"
+                    label="ID Categoria"
+                    fullWidth
+                    defaultValue={panelData?.category_id}
+                    variant="standard"
+                    onChange={(e) => {setPanelFormCategoryId(e.target.value)}}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    required
+                    autoFocus
+                    disabled={formEditMode}
+                    margin="dense"
+                    label="ID Subcategoria"
+                    fullWidth
+                    defaultValue={panelData?.subcategory_id}
+                    variant="standard"
+                    onChange={(e) => {setPanelFormSubCategoryId(e.target.value)}}
                   />
                 </Grid>
                 <Grid item xs={8}>
