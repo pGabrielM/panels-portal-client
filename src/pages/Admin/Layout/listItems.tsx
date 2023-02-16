@@ -13,7 +13,7 @@ export const mainListItems = (
   <React.Fragment>
     <Link to={'/admin'}>
       <ListItemButton>
-        <ListItemIcon>
+        <ListItemIcon >
           <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Inicio" />

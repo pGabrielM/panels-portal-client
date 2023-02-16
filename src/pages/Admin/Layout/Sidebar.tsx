@@ -88,7 +88,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-export default function Sidebar({OutletElement}: any) {
+export default function Sidebar({ OutletElement }: any) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -131,10 +131,10 @@ export default function Sidebar({OutletElement}: any) {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Admin
             </Typography>
             <IconButton color="inherit" onClick={handleLogout}>
-                <ExitToAppIcon />
+              <ExitToAppIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -169,7 +169,7 @@ export default function Sidebar({OutletElement}: any) {
           }}
         >
           <Toolbar />
-            {OutletElement}
+          {OutletElement}
         </Box>
         <ToastContainer
           position="bottom-center"

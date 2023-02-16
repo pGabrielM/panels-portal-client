@@ -21,7 +21,7 @@ export default function RoutesApp() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<Portal />}/>        
+        <Route path="*" element={<Portal />} />
         <Route path="/portal" element={<Portal />} />
         <Route path="/login" element={<Login />} />
 
