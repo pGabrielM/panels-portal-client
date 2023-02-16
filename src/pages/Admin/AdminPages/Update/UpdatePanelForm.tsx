@@ -1,4 +1,4 @@
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, FormControlLabel, Grid, IconButton, Paper, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, FormControlLabel, Grid, IconButton, LinearProgress, Paper, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { FormEvent, useContext, useEffect, useState } from "react";
@@ -35,6 +35,7 @@ export default function UpdatePanelForm() {
   const [panelFormCategoryId, setPanelFormCategoryId] = useState<any>();
   const [panelFormSubCategoryId, setPanelFormSubCategoryId] = useState<any>();
   const [panelFormStatus, setPanelFormStatus] = useState<any>();
+  const [isLoading, setIsLoading] = useState(false)
 
   const rows = allPanels.map((panel: PanelDataProps) => {
     return {
@@ -42,7 +43,7 @@ export default function UpdatePanelForm() {
       name: panel.panel_name,
       link: panel.panel_link,
       order: panel.order,
-      sectorId: panel.sector_id != null ? panel.sector_id : 'Não possui' ,
+      sectorId: panel.sector_id != null ? panel.sector_id : 'Não possui',
       categoryId: panel.category_id != null ? panel.category_id : 'Não possui',
       subCategoryId: panel.subcategory_id != null ? panel.subcategory_id : 'Não possui',
       status: panel.status,
@@ -67,9 +68,11 @@ export default function UpdatePanelForm() {
   async function getPanels() {
     const panels = await data.getAllPanels()
     setAllPanels(panels)
+    setIsLoading(false)
   }
 
   useEffect(() => {
+    setIsLoading(true)
     getPanels()
   }, [])
 
@@ -101,14 +104,14 @@ export default function UpdatePanelForm() {
     e.preventDefault()
     var panelDataToUpdate: UpdatePanelProps = {}
 
-    if(panelFormName !== null) panelDataToUpdate.panel_name = panelFormName
-    if(panelFormLink !== null) panelDataToUpdate.panel_link = panelFormLink
-    if(panelFormOrder !== null) panelDataToUpdate.order = panelFormOrder
-    if(panelFormSectorId !== null) panelDataToUpdate.sector_id = panelFormSectorId
-    if(panelFormCategoryId !== null) panelDataToUpdate.category_id = panelFormCategoryId
-    if(panelFormSubCategoryId !== null) panelDataToUpdate.subcategory_id = panelFormSubCategoryId
-    if(panelFormStatus !== null) panelDataToUpdate.status = panelFormStatus
-    
+    if (panelFormName !== null) panelDataToUpdate.panel_name = panelFormName
+    if (panelFormLink !== null) panelDataToUpdate.panel_link = panelFormLink
+    if (panelFormOrder !== null) panelDataToUpdate.order = panelFormOrder
+    if (panelFormSectorId !== null) panelDataToUpdate.sector_id = panelFormSectorId
+    if (panelFormCategoryId !== null) panelDataToUpdate.category_id = panelFormCategoryId
+    if (panelFormSubCategoryId !== null) panelDataToUpdate.subcategory_id = panelFormSubCategoryId
+    if (panelFormStatus !== null) panelDataToUpdate.status = panelFormStatus
+
     await data.updatePanel(currentPanelId, panelDataToUpdate)
 
     getPanels();
@@ -130,23 +133,26 @@ export default function UpdatePanelForm() {
       }}
     >
       <Typography variant="h6" gutterBottom>
-        Selecione o indicador que você deseja atualizar
+        Selecione o paineis que você deseja atualizar
       </Typography>
       <Box height={800}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          onSelectionModelChange={(id: any) => { handleGetPanelToUpdate(id) }}
-        />
+        {isLoading
+          ? <LinearProgress />
+          : <DataGrid
+            rows={rows}
+            columns={columns}
+            onSelectionModelChange={(id: any) => { handleGetPanelToUpdate(id) }}
+          />
+        }
         <Dialog open={open} onClose={handleClose}>
           <Box display={'flex'} justifyContent={'space-between'} >
-            <DialogTitle>{`Indicador ${panelData?.panel_name}`}</DialogTitle>
+            <DialogTitle>{`Painel ${panelData?.panel_name}`}</DialogTitle>
             <FormControlLabel control={<Switch defaultChecked={false} />} label="Editar" onClick={(e) => { setFormEditMode(!(e.target as HTMLInputElement).checked) }} />
           </Box>
           <Box component="form" onSubmit={handleUpdatePanel}>
             <DialogContent>
               <DialogContentText>
-                Alterar dados do indicador
+                Alterar dados do painel
               </DialogContentText>
               <Grid container spacing={4} direction="row" justifyContent="left" alignItems="center">
                 <Grid item xs={8}>
@@ -155,11 +161,11 @@ export default function UpdatePanelForm() {
                     autoFocus
                     disabled={formEditMode}
                     margin="dense"
-                    label="Nome do indicador"
+                    label="Nome do painel"
                     defaultValue={panelData?.panel_name}
                     fullWidth
                     variant="standard"
-                    onChange={(e) => {setPanelFormName(e.target.value)}}
+                    onChange={(e) => { setPanelFormName(e.target.value) }}
                   />
                 </Grid>
                 <Grid item xs={8}>
@@ -168,11 +174,11 @@ export default function UpdatePanelForm() {
                     autoFocus
                     disabled={formEditMode}
                     margin="dense"
-                    label="Link do indicador"
+                    label="Link do painel"
                     fullWidth
                     defaultValue={panelData?.panel_link}
                     variant="standard"
-                    onChange={(e) => {setPanelFormLink(e.target.value)}}
+                    onChange={(e) => { setPanelFormLink(e.target.value) }}
                   />
                 </Grid>
                 <Grid item xs={8}>
@@ -181,11 +187,11 @@ export default function UpdatePanelForm() {
                     autoFocus
                     disabled={formEditMode}
                     margin="dense"
-                    label="Ordem do indicador"
+                    label="Ordem do painel"
                     fullWidth
                     defaultValue={panelData?.order}
                     variant="standard"
-                    onChange={(e) => {setPanelFormOrder(e.target.value)}}
+                    onChange={(e) => { setPanelFormOrder(e.target.value) }}
                   />
                 </Grid>
                 <Grid item xs={8}>
@@ -198,7 +204,7 @@ export default function UpdatePanelForm() {
                     fullWidth
                     defaultValue={panelData?.sector_id}
                     variant="standard"
-                    onChange={(e) => {setPanelFormSectorId(e.target.value)}}
+                    onChange={(e) => { setPanelFormSectorId(e.target.value) }}
                   />
                 </Grid>
                 <Grid item xs={8}>
@@ -211,7 +217,7 @@ export default function UpdatePanelForm() {
                     fullWidth
                     defaultValue={panelData?.category_id}
                     variant="standard"
-                    onChange={(e) => {setPanelFormCategoryId(e.target.value)}}
+                    onChange={(e) => { setPanelFormCategoryId(e.target.value) }}
                   />
                 </Grid>
                 <Grid item xs={8}>
@@ -224,7 +230,7 @@ export default function UpdatePanelForm() {
                     fullWidth
                     defaultValue={panelData?.subcategory_id}
                     variant="standard"
-                    onChange={(e) => {setPanelFormSubCategoryId(e.target.value)}}
+                    onChange={(e) => { setPanelFormSubCategoryId(e.target.value) }}
                   />
                 </Grid>
                 <Grid item xs={8}>
@@ -237,7 +243,7 @@ export default function UpdatePanelForm() {
                     fullWidth
                     defaultValue={panelData?.status}
                     variant="standard"
-                    onChange={(e) => {setPanelFormStatus(e.target.value)}}
+                    onChange={(e) => { setPanelFormStatus(e.target.value) }}
                   />
                 </Grid>
                 <Grid item xs={6}>

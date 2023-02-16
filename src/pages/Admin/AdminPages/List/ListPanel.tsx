@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, LinearProgress, Paper, TextField, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useContext, useEffect, useState } from "react";
@@ -9,13 +9,16 @@ export default function ListPanel() {
   const data = useContext(DataContext)
 
   const [allPanels, setAllPanels] = useState<any>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   async function getPanels() {
     const panels = await data.getAllPanels()
     setAllPanels(panels)
+    setIsLoading(false)
   }
 
   useEffect(() => {
+    setIsLoading(true)
     getPanels()
   }, [])
 
@@ -62,6 +65,7 @@ export default function ListPanel() {
     >
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
+
           <Paper
             sx={{
               p: 2,
@@ -71,13 +75,18 @@ export default function ListPanel() {
               width: '100%',
             }}
           >
-
+            <Typography variant="h6" gutterBottom>
+              Lista de paineis
+            </Typography>
             <Box height={800}>
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                disableSelectionOnClick
-              />
+              {isLoading
+                ? <LinearProgress />
+                : <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  disableSelectionOnClick
+                />
+              }
             </Box>
           </Paper>
         </Grid>

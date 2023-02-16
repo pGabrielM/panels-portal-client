@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, Toolbar, Tooltip, Typography } from "@mui/material";
+import { Button, Grid, LinearProgress, Paper, Toolbar, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
@@ -11,13 +11,16 @@ export default function DeletePanelForm() {
   const data = useApi()
   const [allPanels, setAllPanels] = useState([])
   const [panelsToDelete, setPanelsToDelete] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const getPanels = async () => {
     const panels = await data.getAllPanel()
     setAllPanels(panels)
+    setIsLoading(false)
   }
 
   useEffect(() => {
+    setIsLoading(true)
     getPanels()
   }, [])
 
@@ -27,7 +30,7 @@ export default function DeletePanelForm() {
       name: panel.panel_name,
       link: panel.panel_link,
       order: panel.order,
-      sectorId: panel.sector_id != null ? panel.sector_id : 'Não possui' ,
+      sectorId: panel.sector_id != null ? panel.sector_id : 'Não possui',
       categoryId: panel.category_id != null ? panel.category_id : 'Não possui',
       subCategoryId: panel.subcategory_id != null ? panel.subcategory_id : 'Não possui',
       status: panel.status,
@@ -69,16 +72,19 @@ export default function DeletePanelForm() {
       }}
     >
       <Typography variant="h6" gutterBottom>
-        Qual indicador você deseja remover?
+        Qual painel você deseja remover?
       </Typography>
       <Box height={800}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          checkboxSelection
-          disableSelectionOnClick
-          onSelectionModelChange={(id: any) => { setPanelsToDelete(id) }}
-        />
+        {isLoading
+          ? <LinearProgress />
+          : <DataGrid
+            rows={rows}
+            columns={columns}
+            checkboxSelection
+            disableSelectionOnClick
+            onSelectionModelChange={(id: any) => { setPanelsToDelete(id) }}
+          />
+        }
       </Box>
       <Grid item xs={2} margin={'auto'}>
         <Button onClick={handleDeletePanels} fullWidth variant="contained" sx={{ mt: 4, mb: 2 }}>Remover</Button>

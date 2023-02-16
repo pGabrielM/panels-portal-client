@@ -34,7 +34,7 @@ export default function CreatePanelForm() {
     )
 
     if (createPanel.status) {
-      toast.success('Indicador criado com sucesso!')
+      toast.success('Painel criado com sucesso!')
     } else {
       toast.error(createPanel.message);
     }
