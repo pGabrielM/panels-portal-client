@@ -1,8 +1,6 @@
-import { styled } from "@stitches/react";
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -11,11 +9,10 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Alert, Grow, Slide, Snackbar, Zoom } from "@mui/material";
+import { Alert, CircularProgress, Zoom } from "@mui/material";
 import { PortalHeaderLogo } from "../Portal/PortalHeader/PortalHeaderLogo";
 
 const theme = createTheme();
@@ -59,7 +56,7 @@ export default function Login() {
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <Box height={50}>
               <Zoom in={error}>
-                <Alert severity="error" sx={{ width: '100%' }}>E-mail ou senha invalidos!</Alert>
+                <Alert severity="error" sx={{ width: '100%' }}>Usuário ou senha invalidos!</Alert>
               </Zoom>
             </Box>
             <Typography component="h1" variant="h5" textAlign={'center'}>
