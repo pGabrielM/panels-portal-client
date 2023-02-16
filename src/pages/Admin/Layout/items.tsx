@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import AddToQueueIcon from '@mui/icons-material/AddToQueue';
 import DvrIcon from '@mui/icons-material/Dvr';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
-import HomeIcon from '@mui/icons-material/Home';;
+import HomeIcon from '@mui/icons-material/Home';
 import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
 import { Link } from 'react-router-dom';
 
