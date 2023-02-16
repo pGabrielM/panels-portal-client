@@ -24,14 +24,14 @@ export default function Login() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [saveToken, setSaveToken] = useState(false)
   const [error, setError] = useState(false)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isLogged = await auth.login(email, password, saveToken);
+    const isLogged = await auth.login(username, password, saveToken);
 
     if (isLogged) {
       navigate('/admin')
@@ -71,8 +71,8 @@ export default function Login() {
               fullWidth
               label="Login"
               autoFocus
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
             />
             <TextField
               margin="normal"
