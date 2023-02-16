@@ -27,9 +27,9 @@ export default function DeletePanelForm() {
       name: panel.panel_name,
       link: panel.panel_link,
       order: panel.order,
-      sectorId: panel.sector_id,
-      categoryId: panel.category_id,
-      subCategoryId: panel.subcategory_id,
+      sectorId: panel.sector_id != null ? panel.sector_id : 'Não possui' ,
+      categoryId: panel.category_id != null ? panel.category_id : 'Não possui',
+      subCategoryId: panel.subcategory_id != null ? panel.subcategory_id : 'Não possui',
       status: panel.status,
       createdBy: panel.created_by,
       createdDate: panel.created_date
@@ -41,12 +41,12 @@ export default function DeletePanelForm() {
     { field: 'name', headerName: 'Nome', width: 200 },
     { field: 'link', headerName: 'Link', width: 180 },
     { field: 'order', headerName: 'Ordem', width: 75 },
-    { field: 'sectorId', headerName: 'ID Setor', width: 70 },
+    { field: 'sectorId', headerName: 'ID Setor', width: 100 },
     { field: 'categoryId', headerName: 'ID Categoria', width: 100 },
-    { field: 'subcategoryId', headerName: 'ID Subcategoria', width: 130 },
+    { field: 'subCategoryId', headerName: 'ID Subcategoria', width: 130 },
     { field: 'status', headerName: 'Status', width: 80 },
     { field: 'createdBy', headerName: 'Criador por', width: 120 },
-    { field: 'createdDate', headerName: 'Criado em', width: 300 },
+    { field: 'createdDate', headerName: 'Criado em', width: 200 },
   ];
 
   async function handleDeletePanels() {

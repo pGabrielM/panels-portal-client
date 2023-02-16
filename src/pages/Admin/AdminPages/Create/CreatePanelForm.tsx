@@ -77,52 +77,66 @@ export default function CreatePanelForm() {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              label="Ordem de exibição"
-              type={'number'}
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-              onChange={(e) => setPanelOrder(e.target.value)}
-              value={panelOrder}
-            />
+            <FormControl fullWidth>
+              <InputLabel>Ordem de exibição</InputLabel>
+              <Select
+                label="Ordem de exibição"
+                onChange={(e) => setPanelOrder(e.target.value)}
+              >
+                {
+                  Array.from({ length: 11}, (e, key) => {
+                    if(key != 0) {
+                      return <MenuItem value={key}>{key}</MenuItem>
+                    }
+                  })
+                }
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              label="Código setor"
-              type={'number'}
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-              onChange={(e) => setPanelSectorId(e.target.value)}
-              value={panelSectorId}
-            />
+            <FormControl fullWidth>
+              <InputLabel>Codigo do setor</InputLabel>
+              <Select
+                label="Codigo do setor"
+                onChange={(e) => setPanelSectorId(e.target.value)}
+              >
+                {
+                  Array.from({ length: 11}, (e, key) => {
+                    return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              label="Código categoria"
-              type={'number'}
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-              onChange={(e) => setPanelCategoryId(e.target.value)}
-              value={panelCategoryId}
-            />
+          <FormControl fullWidth>
+              <InputLabel>Codigo da categoria</InputLabel>
+              <Select
+                label="Codigo da categoria"
+                onChange={(e) => setPanelCategoryId(e.target.value)}
+              >
+                {
+                  Array.from({ length: 11}, (e, key) => {
+                    return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              label="Código subcategoria"
-              type={'number'}
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-              onChange={(e) => setPanelSubCategoryId(e.target.value)}
-              value={panelSubCategoryId}
-            />
+          <FormControl fullWidth>
+              <InputLabel>Codigo da subcategoria</InputLabel>
+              <Select
+                label="Codigo da subcategoria"
+                onChange={(e) => setPanelSubCategoryId(e.target.value)}
+              >
+                {
+                  Array.from({ length: 11}, (e, key) => {
+                    return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
