@@ -3,6 +3,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AddToQueueIcon from '@mui/icons-material/AddToQueue';
+import DvrIcon from '@mui/icons-material/Dvr';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import HomeIcon from '@mui/icons-material/Home';;
 import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
@@ -23,15 +24,15 @@ export const mainListItems = (
         <ListItemIcon>
           <AddToQueueIcon />
         </ListItemIcon>
-        <ListItemText primary="Adicionar Painel" />
+        <ListItemText primary="Adicionar Paineis" />
       </ListItemButton>
     </Link>
-    <Link to={'/admin/delete'}>
+    <Link to={'/admin/list'}>
       <ListItemButton>
         <ListItemIcon>
-          <CancelPresentationIcon />
+          <DvrIcon />
         </ListItemIcon>
-        <ListItemText primary="Remover Painel" />
+        <ListItemText primary="Listar Paineis" />
       </ListItemButton>
     </Link>
     <Link to={'/admin/update'}>
@@ -39,7 +40,15 @@ export const mainListItems = (
         <ListItemIcon>
           <BrowserUpdatedIcon />
         </ListItemIcon>
-        <ListItemText primary="Atualizar Painel" />
+        <ListItemText primary="Atualizar Paineis" />
+      </ListItemButton>
+    </Link>
+    <Link to={'/admin/delete'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <CancelPresentationIcon />
+        </ListItemIcon>
+        <ListItemText primary="Remover Paineis" />
       </ListItemButton>
     </Link>
   </React.Fragment>
