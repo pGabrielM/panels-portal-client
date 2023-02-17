@@ -13,12 +13,17 @@ import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import HomeIcon from '@mui/icons-material/Home';
 import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
 import AddToQueueIcon from '@mui/icons-material/AddToQueue';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
 
 export default function ListItems() {
-  const [open, setOpen] = React.useState(true);
+  const [openPanelMenu, setOpenPanelMenu] = React.useState(true);
+  const [openCategoryMenu, setOpenCategoryMenu] = React.useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
+  const handleClickPanel = () => {
+    setOpenPanelMenu(!openPanelMenu);
+  };
+  const handleClickCategory = () => {
+    setOpenCategoryMenu(!openCategoryMenu);
   };
 
   return (
@@ -35,14 +40,14 @@ export default function ListItems() {
           <ListItemText primary="Inicio" />
         </ListItemButton>
       </Link>
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton onClick={handleClickPanel}>
         <ListItemIcon>
           <DisplaySettingsIcon />
         </ListItemIcon>
         <ListItemText primary="Paineis" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {openPanelMenu ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={openPanelMenu} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <Link to={'/admin/create'} style={{color: 'inherit', textDecoration: 'none'}}>
             <ListItemButton>
@@ -74,6 +79,25 @@ export default function ListItems() {
                 <CancelPresentationIcon />
               </ListItemIcon>
               <ListItemText primary="Remover Paineis" />
+            </ListItemButton>
+          </Link>
+        </List>
+      </Collapse>
+      <ListItemButton onClick={handleClickCategory}>
+        <ListItemIcon>
+          <AccountTreeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Categorias" />
+        {openCategoryMenu ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={openCategoryMenu} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <Link to={'/admin/create'} style={{color: 'inherit', textDecoration: 'none'}}>
+            <ListItemButton>
+              <ListItemIcon>
+                <AddToQueueIcon />
+              </ListItemIcon>
+              <ListItemText primary="Adicionar Paineis" />
             </ListItemButton>
           </Link>
         </List>
