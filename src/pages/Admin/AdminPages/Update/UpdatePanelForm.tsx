@@ -1,4 +1,4 @@
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, FormControlLabel, Grid, IconButton, LinearProgress, Paper, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, FormControl, FormControlLabel, Grid, IconButton, InputLabel, LinearProgress, MenuItem, Paper, Select, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { FormEvent, useContext, useEffect, useState } from "react";
@@ -182,56 +182,78 @@ export default function UpdatePanelForm() {
                   />
                 </Grid>
                 <Grid item xs={8}>
-                  <TextField
-                    required
-                    autoFocus
-                    disabled={formEditMode}
-                    margin="dense"
-                    label="Ordem do painel"
-                    fullWidth
-                    defaultValue={panelData?.order}
-                    variant="standard"
-                    onChange={(e) => { setPanelFormOrder(e.target.value) }}
-                  />
+                  <FormControl fullWidth>
+                    <InputLabel>Ordem de exibição</InputLabel>
+                    <Select
+                      variant="filled"
+                      label="Ordem de exibição"
+                      onChange={(e) => setPanelFormOrder(e.target.value)}
+                      disabled={formEditMode}
+                      defaultValue={panelData?.order}
+                    >
+                      {
+                        Array.from({ length: 11 }, (e, key) => {
+                          if (key != 0) {
+                            return <MenuItem value={key}>{key}</MenuItem>
+                          }
+                        })
+                      }
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={8}>
-                  <TextField
-                    required
-                    autoFocus
-                    disabled={formEditMode}
-                    margin="dense"
-                    label="ID Setor"
-                    fullWidth
-                    defaultValue={panelData?.sector_id}
-                    variant="standard"
-                    onChange={(e) => { setPanelFormSectorId(e.target.value) }}
-                  />
+                  <FormControl fullWidth>
+                    <InputLabel>ID Setor</InputLabel>
+                    <Select
+                      variant="filled"
+                      label="ID Setor"
+                      onChange={(e) => setPanelFormSectorId(e.target.value)}
+                      disabled={formEditMode}
+                      defaultValue={panelData?.sector_id}
+                    >
+                      {
+                        Array.from({ length: 11 }, (e, key) => {
+                          return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
+                        })
+                      }
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={8}>
-                  <TextField
-                    required
-                    autoFocus
-                    disabled={formEditMode}
-                    margin="dense"
-                    label="ID Categoria"
-                    fullWidth
-                    defaultValue={panelData?.category_id}
-                    variant="standard"
-                    onChange={(e) => { setPanelFormCategoryId(e.target.value) }}
-                  />
+                  <FormControl fullWidth>
+                    <InputLabel>ID Categoria</InputLabel>
+                    <Select
+                      variant="filled"
+                      label="ID Categoria"
+                      onChange={(e) => setPanelFormCategoryId(e.target.value)}
+                      disabled={formEditMode}
+                      defaultValue={panelData?.category_id}
+                    >
+                      {
+                        Array.from({ length: 11 }, (e, key) => {
+                          return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
+                        })
+                      }
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={8}>
-                  <TextField
-                    required
-                    autoFocus
-                    disabled={formEditMode}
-                    margin="dense"
-                    label="ID Subcategoria"
-                    fullWidth
-                    defaultValue={panelData?.subcategory_id}
-                    variant="standard"
-                    onChange={(e) => { setPanelFormSubCategoryId(e.target.value) }}
-                  />
+                  <FormControl fullWidth>
+                    <InputLabel>ID Subcategoria</InputLabel>
+                    <Select
+                      variant="filled"
+                      label="ID Subcategory"
+                      onChange={(e) => setPanelFormSubCategoryId(e.target.value)}
+                      disabled={formEditMode}
+                      defaultValue={panelData?.subcategory_id}
+                    >
+                      {
+                        Array.from({ length: 11 }, (e, key) => {
+                          return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
+                        })
+                      }
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={8}>
                   <TextField
