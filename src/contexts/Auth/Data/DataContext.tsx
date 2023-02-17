@@ -13,6 +13,7 @@ export type DataContextType = {
   getAllPanels: () => Promise<Object>;
   getOnePanel: (id: number) => Promise<Object>;
   updatePanel: (id: number, panelDataToUpdate: Object) => Promise<Object>
+  storeCategory: (categoryName: string, categoryOrder: string, categoryType: string, categoryStatus: string) => Promise<Object>
 }
 
 export const DataContext = createContext<DataContextType>(null!);

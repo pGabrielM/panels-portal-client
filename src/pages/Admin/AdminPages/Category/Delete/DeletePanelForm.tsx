@@ -2,8 +2,8 @@ import { Button, Grid, LinearProgress, Paper, Toolbar, Tooltip, Typography } fro
 import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { useApi } from "../../../../hooks/useApi";
-import { PanelDataProps } from "../../../../interfaces/PanelInterface";
+import { useApi } from "../../../../../hooks/useApi";
+import { PanelDataProps } from "../../../../../interfaces/PanelInterface";
 
 
 

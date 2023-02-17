@@ -16,8 +16,8 @@ import AddToQueueIcon from '@mui/icons-material/AddToQueue';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 
 export default function ListItems() {
-  const [openPanelMenu, setOpenPanelMenu] = React.useState(true);
-  const [openCategoryMenu, setOpenCategoryMenu] = React.useState(true);
+  const [openPanelMenu, setOpenPanelMenu] = React.useState(false);
+  const [openCategoryMenu, setOpenCategoryMenu] = React.useState(false);
 
   const handleClickPanel = () => {
     setOpenPanelMenu(!openPanelMenu);
@@ -32,8 +32,8 @@ export default function ListItems() {
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <Link to={'/admin'} style={{color: 'inherit', textDecoration: 'none'}}>
-        <ListItemButton>
+      <Link to={'/admin'} style={{color: 'black', textDecoration: 'none'}}>
+        <ListItemButton >
           <ListItemIcon >
             <HomeIcon />
           </ListItemIcon>
@@ -44,37 +44,37 @@ export default function ListItems() {
         <ListItemIcon>
           <DisplaySettingsIcon />
         </ListItemIcon>
-        <ListItemText primary="Paineis" />
+        <ListItemText primary="Paineis" style={{color: 'black'}}/>
         {openPanelMenu ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={openPanelMenu} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Link to={'/admin/create'} style={{color: 'inherit', textDecoration: 'none'}}>
-            <ListItemButton>
+          <Link to={'/admin/panel/create'} style={{color: 'inherit', textDecoration: 'none'}}>
+            <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <AddToQueueIcon />
               </ListItemIcon>
               <ListItemText primary="Adicionar Paineis" />
             </ListItemButton>
           </Link>
-          <Link to={'/admin/list'} style={{color: 'inherit', textDecoration: 'none'}}>
-            <ListItemButton>
+          <Link to={'/admin/panel/list'} style={{color: 'inherit', textDecoration: 'none'}}>
+            <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <DvrIcon />
               </ListItemIcon>
               <ListItemText primary="Listar Paineis" />
             </ListItemButton>
           </Link>
-          <Link to={'/admin/update'} style={{color: 'inherit', textDecoration: 'none'}}>
-            <ListItemButton>
+          <Link to={'/admin/panel/update'} style={{color: 'inherit', textDecoration: 'none'}}>
+            <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <BrowserUpdatedIcon />
               </ListItemIcon>
               <ListItemText primary="Atualizar Paineis" />
             </ListItemButton>
           </Link>
-          <Link to={'/admin/delete'} style={{color: 'inherit', textDecoration: 'none'}}>
-            <ListItemButton>
+          <Link to={'/admin/panel/delete'} style={{color: 'inherit', textDecoration: 'none'}}>
+            <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <CancelPresentationIcon />
               </ListItemIcon>
@@ -87,17 +87,17 @@ export default function ListItems() {
         <ListItemIcon>
           <AccountTreeIcon />
         </ListItemIcon>
-        <ListItemText primary="Categorias" />
+        <ListItemText primary="Categorias" style={{color: 'black'}}/>
         {openCategoryMenu ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={openCategoryMenu} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Link to={'/admin/create'} style={{color: 'inherit', textDecoration: 'none'}}>
-            <ListItemButton>
+          <Link to={'/admin/category/create'} style={{color: 'inherit', textDecoration: 'none'}}>
+            <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <AddToQueueIcon />
               </ListItemIcon>
-              <ListItemText primary="Adicionar Paineis" />
+              <ListItemText primary="Adicionar Setor" />
             </ListItemButton>
           </Link>
         </List>

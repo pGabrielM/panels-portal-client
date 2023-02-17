@@ -1,40 +1,41 @@
 import { Alert, Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField, Typography, Zoom } from "@mui/material";
 import { Box } from "@mui/system";
-import { FormEvent, useContext, useState } from "react";
-import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { DataContext } from "../../../../../contexts/Auth/Data/DataContext";
 
-interface CreatePanelProps {
+interface CreateCategoryProps {
   status?: boolean
   message?: string
 }
 
-export default function CreatePanelForm() {
+export default function CreateCategoryForm() {
   const data = useContext(DataContext)
 
-  const [panelName, setPanelName] = useState('');
-  const [panelLink, setPanelLink] = useState('');
-  const [panelOrder, setPanelOrder] = useState<any>();
-  const [panelSectorId, setPanelSectorId] = useState<any>();
-  const [panelCategoryId, setPanelCategoryId] = useState<any>();
-  const [panelSubCategoryId, setPanelSubCategoryId] = useState<any>();
-  const [panelStatus, setPanelStatus] = useState('');
+  const [categoryName, setPanelName] = useState('');
+  const [categoryOrder, setCategoryOrder] = useState<any>();
+  const [categoryType, setCategoryType] = useState<any>();
+  const [categoryStatus, setPanelStatus] = useState('');
+  const [categoryId, setCategoryId] = useState<any>();
+  const [subCategoryId, setSubCategoryId] = useState<any>();
+
+  useEffect(() => {
+      setCategoryId(null)
+      setSubCategoryId(null)
+  }, [categoryType])
 
   const handleCreatePanel = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const createPanel: CreatePanelProps = await data.storePanel(
-      panelName,
-      panelLink,
-      panelOrder,
-      panelSectorId,
-      panelCategoryId,
-      panelSubCategoryId,
-      panelStatus
+    const createPanel: CreateCategoryProps = await data.storeCategory(
+      categoryName,
+      categoryOrder,
+      categoryType,
+      categoryStatus,
     )
 
     if (createPanel.status) {
-      toast.success('Painel criado com sucesso!')
+      toast.success('Categoria criada com sucesso!')
     } else {
       toast.error(createPanel.message);
     }
@@ -51,29 +52,18 @@ export default function CreatePanelForm() {
       }}
     >
       <Typography variant="h6" gutterBottom>
-        Preencha o formulário para adicionar um novo indicador.
+        Preencha o formulário para adicionar uma nova ramificação.
       </Typography>
       <Box component="form" onSubmit={handleCreatePanel} sx={{ mt: 1 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
               required
-              label="Nome do painel"
+              label="Nome da ramificação"
               fullWidth
               variant="standard"
               onChange={(e) => setPanelName(e.target.value)}
-              value={panelName}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              label="Link"
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-              onChange={(e) => setPanelLink(e.target.value)}
-              value={panelLink}
+              value={categoryName}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -81,11 +71,11 @@ export default function CreatePanelForm() {
               <InputLabel>Ordem de exibição</InputLabel>
               <Select
                 label="Ordem de exibição"
-                onChange={(e) => setPanelOrder(e.target.value)}
+                onChange={(e) => setCategoryOrder(e.target.value)}
               >
                 {
-                  Array.from({ length: 11}, (e, key) => {
-                    if(key != 0) {
+                  Array.from({ length: 11 }, (e, key) => {
+                    if (key != 0) {
                       return <MenuItem value={key}>{key}</MenuItem>
                     }
                   })
@@ -95,49 +85,55 @@ export default function CreatePanelForm() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
-              <InputLabel>Codigo do setor</InputLabel>
-              <Select
-                label="Codigo do setor"
-                onChange={(e) => setPanelSectorId(e.target.value)}
-              >
-                {
-                  Array.from({ length: 11}, (e, key) => {
-                    return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
-                  })
-                }
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-              <InputLabel>Codigo da categoria</InputLabel>
-              <Select
-                label="Codigo da categoria"
-                onChange={(e) => setPanelCategoryId(e.target.value)}
-              >
-                {
-                  Array.from({ length: 11}, (e, key) => {
-                    return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
-                  })
-                }
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
               <InputLabel>Codigo da subcategoria</InputLabel>
               <Select
-                label="Codigo da subcategoria"
-                onChange={(e) => setPanelSubCategoryId(e.target.value)}
+                label="Qual tipo de ramificação?"
+                onChange={(e) => setCategoryType(e.target.value)}
+              >
+                <MenuItem value={'sector'}>Setor</MenuItem>
+                <MenuItem value={'category'}>Categoria</MenuItem>
+                <MenuItem value={'subcategory'}>Subcategoria</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          {categoryType == 'category' && 
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel>ID categoria</InputLabel>
+              <Select
+                label="ID categoria"
+                onChange={(e) => setCategoryId(e.target.value)}
               >
                 {
-                  Array.from({ length: 11}, (e, key) => {
-                    return <MenuItem value={key != 0 ? key : NaN}>{key != 0 ? key : 'Não possui'}</MenuItem>
+                  Array.from({ length: 11 }, (e, key) => {
+                    if (key != 0) {
+                      return <MenuItem value={key}>{key}</MenuItem>
+                    }
                   })
                 }
               </Select>
             </FormControl>
           </Grid>
+          }
+          {categoryType == 'subcategory' && 
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel>ID Subcategoria</InputLabel>
+              <Select
+                label="ID Subcategoria"
+                onChange={(e) => setSubCategoryId(e.target.value)}
+              >
+                {
+                  Array.from({ length: 11 }, (e, key) => {
+                    if (key != 0) {
+                      return <MenuItem value={key}>{key}</MenuItem>
+                    }
+                  })
+                }
+              </Select>
+            </FormControl>
+          </Grid>
+          }
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>Status</InputLabel>

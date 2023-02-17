@@ -1,13 +1,14 @@
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "../contexts/Auth/RequireAuth";
-import CreatePanel from "../pages/Admin/AdminPages/Create/CreatePanel";
-import DeletePanel from "../pages/Admin/AdminPages/Delete/DeletePanel";
+import DeletePanel from "../pages/Admin/AdminPages/Panel/Delete/DeletePanel";
 import Home from "../pages/Admin/AdminPages/Home";
-import ListPanel from "../pages/Admin/AdminPages/List/ListPanel";
-import UpdatePanel from "../pages/Admin/AdminPages/Update/UpdatePanel";
+import ListPanel from "../pages/Admin/AdminPages/Panel/List/ListPanel";
+import UpdatePanel from "../pages/Admin/AdminPages/Panel/Update/UpdatePanel";
 import Sidebar from "../pages/Admin/Layout/Sidebar";
 import Login from "../pages/Login/Login";
 import Portal from "../pages/Portal/Portal";
+import CreatePanel from "../pages/Admin/AdminPages/Panel/Create/CreatePanel";
+import CreateCategory from "../pages/Admin/AdminPages/Category/Create/CreateCategory";
 
 const AppLayout = () => {
   return (
@@ -27,10 +28,12 @@ export default function RoutesApp() {
 
         <Route element={<AppLayout />}>
           <Route path={'/admin'} element={<Home />} />
-          <Route path={'/admin/create'} element={<CreatePanel />} />
-          <Route path={'/admin/list'} element={<ListPanel />} />
-          <Route path={'/admin/delete'} element={<DeletePanel />} />
-          <Route path={'/admin/update'} element={<UpdatePanel />} />
+          <Route path={'/admin/panel/create'} element={<CreatePanel />} />
+          <Route path={'/admin/panel/list'} element={<ListPanel />} />
+          <Route path={'/admin/panel/delete'} element={<DeletePanel />} />
+          <Route path={'/admin/panel/update'} element={<UpdatePanel />} />
+          
+          <Route path={'/admin/category/create'} element={<CreateCategory />} />
         </Route>
       </Routes>
     </BrowserRouter>

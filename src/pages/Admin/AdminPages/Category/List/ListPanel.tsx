@@ -2,8 +2,8 @@ import { Box, CircularProgress, Grid, LinearProgress, Paper, TextField, Typograp
 import { Container } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
-import { PanelDataProps } from "../../../../interfaces/PanelInterface";
+import { DataContext } from "../../../../../contexts/Auth/Data/DataContext";
+import { PanelDataProps } from "../../../../../interfaces/PanelInterface";
 
 export default function ListPanel() {
   const data = useContext(DataContext)

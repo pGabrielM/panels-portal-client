@@ -2,8 +2,8 @@ import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentTe
 import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { FormEvent, useContext, useEffect, useState } from "react";
-import { PanelDataProps } from "../../../../interfaces/PanelInterface";
-import { DataContext } from "../../../../contexts/Auth/Data/DataContext";
+import { PanelDataProps } from "../../../../../interfaces/PanelInterface";
+import { DataContext } from "../../../../../contexts/Auth/Data/DataContext";
 
 interface UpdatePanelProps {
   panel_id?: number
