@@ -26,23 +26,17 @@ export default function CreateRamificationForm() {
   useEffect(() => {
     setSectorId(null)
     setCategoryId(null)
-
     getStoredSectors()
     getStoredCategories()
-
   }, [categoryType])
-
-
 
   async function getStoredSectors() {
     const storedSectors = await data.getAllSectors()
-
     setSectorOptions(storedSectors)
   }
 
   async function getStoredCategories() {
     const storedCategories = await data.getAllCategory()
-
     setCategoryOptions(storedCategories)
   }
 
