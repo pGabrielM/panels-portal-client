@@ -1,4 +1,4 @@
-import { useApi } from "../../../hooks/useApi";
+import { useApi } from "../../hooks/useApi";
 import { DataContext } from "./DataContext";
 
 export default function DataProvider({ children }: { children: JSX.Element }) {
@@ -38,9 +38,12 @@ export default function DataProvider({ children }: { children: JSX.Element }) {
 
     return data
   }
+  async function storeCategory() {
+    return {id: 1}
+  }
 
   return (
-    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel, updatePanel }}>
+    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel, updatePanel, storeCategory }}>
       {children}
     </DataContext.Provider>
   )

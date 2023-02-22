@@ -1,7 +1,7 @@
 import AuthProvider from './contexts/Auth/AuthProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RoutesApp from './routes/RoutesApp';
-import DataProvider from './contexts/Auth/Data/DataProvider';
+import DataProvider from './contexts/Data/DataProvider';
 
 function App() {
 

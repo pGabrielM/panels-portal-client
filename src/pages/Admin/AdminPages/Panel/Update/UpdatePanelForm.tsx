@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { PanelDataProps } from "../../../../../interfaces/PanelInterface";
-import { DataContext } from "../../../../../contexts/Auth/Data/DataContext";
+import { DataContext } from "../../../../../contexts/Data/DataContext";
 
 interface UpdatePanelProps {
   panel_id?: number

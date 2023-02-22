@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { DataContext } from "../../../../../contexts/Auth/Data/DataContext";
+import { DataContext } from "../../../../../contexts/Data/DataContext";
 
 interface CreateCategoryProps {
   status?: boolean
