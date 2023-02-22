@@ -20,10 +20,31 @@ export default function CreateRamificationForm() {
   const [sectorId, setSectorId] = useState<any>();
   const [categoryId, setCategoryId] = useState<any>();
 
+  const [sectorOptions, setSectorOptions] = useState<any>([])
+  const [categoryOptions, setCategoryOptions] = useState<any>([])
+
   useEffect(() => {
     setSectorId(null)
     setCategoryId(null)
+
+    getStoredSectors()
+    getStoredCategories()
+
   }, [categoryType])
+
+
+
+  async function getStoredSectors() {
+    const storedSectors = await data.getAllSectors()
+
+    setSectorOptions(storedSectors)
+  }
+
+  async function getStoredCategories() {
+    const storedCategories = await data.getAllCategory()
+
+    setCategoryOptions(storedCategories)
+  }
 
   const handleCreateRamification = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,10 +128,9 @@ export default function CreateRamificationForm() {
                   onChange={(e) => setSectorId(e.target.value)}
                 >
                   {
-                    Array.from({ length: 11 }, (e, key) => {
-                      if (key != 0) {
-                        return <MenuItem value={key}>{key}</MenuItem>
-                      }
+                    sectorOptions.map((sector: any) => {
+                      return <MenuItem value={sector.sector_id}>{sector.sector_name}</MenuItem>
+
                     })
                   }
                 </Select>
@@ -126,10 +146,9 @@ export default function CreateRamificationForm() {
                   onChange={(e) => setCategoryId(e.target.value)}
                 >
                   {
-                    Array.from({ length: 11 }, (e, key) => {
-                      if (key != 0) {
-                        return <MenuItem value={key}>{key}</MenuItem>
-                      }
+                    categoryOptions.map((category: any) => {
+                      return <MenuItem value={category.category_id}>{category.category_name}</MenuItem>
+
                     })
                   }
                 </Select>

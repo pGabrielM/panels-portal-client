@@ -112,5 +112,23 @@ export const useApi = () => ({
       .catch((error) => {
         return error.response.data;
       })
+  },
+  getAllSectors: async () => {
+    const storageData = localStorage.getItem('authToken');
+    const config = {
+      headers: { 'Authorization': `Bearer ${storageData}` }
+    };
+
+    const response = await api.get('/sector', config)
+    return response.data;
+  },
+  getAllCategory: async () => {
+    const storageData = localStorage.getItem('authToken');
+    const config = {
+      headers: { 'Authorization': `Bearer ${storageData}` }
+    };
+
+    const response = await api.get('/category', config)
+    return response.data;
   }
 })

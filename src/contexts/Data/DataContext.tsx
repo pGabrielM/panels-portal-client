@@ -21,6 +21,8 @@ export type DataContextType = {
     sector_id: string,
     category_id: string
   ) => Promise<Object>
+  getAllSectors: () => Promise<Object>;
+  getAllCategory: () => Promise<Object>;
 }
 
 export const DataContext = createContext<DataContextType>(null!);

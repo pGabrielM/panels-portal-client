@@ -55,8 +55,19 @@ export default function DataProvider({ children }: { children: JSX.Element }) {
 
   }
 
+  async function getAllSectors() {
+    const data = await api.getAllSectors()
+
+    return data;
+  }
+  async function getAllCategory() {
+    const data = await api.getAllCategory()
+
+    return data;
+  }
+
   return (
-    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel, updatePanel, storeRamification }}>
+    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel, updatePanel, storeRamification, getAllSectors, getAllCategory }}>
       {children}
     </DataContext.Provider>
   )
