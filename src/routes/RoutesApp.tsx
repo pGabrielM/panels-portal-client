@@ -8,7 +8,7 @@ import Sidebar from "../pages/Admin/Layout/Sidebar";
 import Login from "../pages/Login/Login";
 import Portal from "../pages/Portal/Portal";
 import CreatePanel from "../pages/Admin/AdminPages/Panel/Create/CreatePanel";
-import CreateCategory from "../pages/Admin/AdminPages/Category/Create/CreateCategory";
+import CreateCategory from "../pages/Admin/AdminPages/Ramification/Create/CreateRamification";
 
 const AppLayout = () => {
   return (

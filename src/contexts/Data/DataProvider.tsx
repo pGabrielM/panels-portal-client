@@ -38,12 +38,25 @@ export default function DataProvider({ children }: { children: JSX.Element }) {
 
     return data
   }
-  async function storeCategory() {
-    return {id: 1}
+  async function storeRamification(
+    category_name: string,
+    category_order: string,
+    category_type: string,
+    category_status: string,
+    sector_id: string,
+    category_id: string
+  ) {
+    const storeRamification = await api.storeRamification(category_name, category_order, category_type, category_status, sector_id, category_id )
+
+    if (storeRamification.status === 400 || storeRamification.status === 500) {
+      return { status: false, message: storeRamification.data.message };
+    }
+    return { status: true };
+
   }
 
   return (
-    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel, updatePanel, storeCategory }}>
+    <DataContext.Provider value={{ storePanel, getAllPanels, getOnePanel, updatePanel, storeRamification }}>
       {children}
     </DataContext.Provider>
   )

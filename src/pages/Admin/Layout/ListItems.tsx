@@ -97,7 +97,7 @@ export default function ListItems() {
               <ListItemIcon>
                 <AddToQueueIcon />
               </ListItemIcon>
-              <ListItemText primary="Adicionar Setor" />
+              <ListItemText primary="Adicionar categoria" />
             </ListItemButton>
           </Link>
         </List>

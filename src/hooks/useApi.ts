@@ -34,7 +34,7 @@ export const useApi = () => ({
     category_id: number,
     subcategory_id: number,
     status: string
-    ) => {
+  ) => {
     const storageData = localStorage.getItem('authToken');
 
     const config = {
@@ -87,5 +87,30 @@ export const useApi = () => ({
 
     const response = await api.delete(`/panel/${panelId}`, config)
     return response.data;
+  },
+  storeRamification: async (
+    category_name: string,
+    category_order: string,
+    category_type: string,
+    category_status: string,
+    sector_id: string,
+    category_id: string
+  ) => {
+    const storageData = localStorage.getItem('authToken');
+
+    const config = {
+      headers: { 'Authorization': `Bearer ${storageData}` }
+    };
+
+    return await api.post('/category', { category_name, category_order, category_type, category_status, sector_id, category_id }, config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return error.response;
+      })
+      .catch((error) => {
+        return error.response.data;
+      })
   }
 })

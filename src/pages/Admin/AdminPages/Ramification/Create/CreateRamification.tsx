@@ -1,9 +1,9 @@
 import { Box, Checkbox, FormControlLabel, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import CreateCategoryForm from "./CreateCategoryForm";
-import CreatePanelForm from "./CreateCategoryForm";
+import CreateCategoryForm from "./CreateRamificationForm";
+import CreatePanelForm from "./CreateRamificationForm";
 
-export default function CreateCategory() {
+export default function CreateRamification() {
   return (
     <Box
       component="main"
